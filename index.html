@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>1سبان ورقيات 15</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --gd:#0F3D22;--gm:#1A5C38;--gp:#EAF5EF;--gb:#B8DFC8;
+  --bd:#0C3B6B;--bm:#185FA5;--bp:#E6F1FB;--bb:#A8C9EC;
+  --ad:#5C2E00;--am:#A85700;--ap:#FFF0D6;--ab:#F0C87A;
+  --pd:#4A148C;--pm:#7B1FA2;--pp:#F3E5F5;--pb:#CE93D8;
+  --bg:#F4F7F4;--sur:#FFFFFF;--sur2:#F0F4F1;
+  --bor:#D8E5DC;--tx:#0F1F14;--tx2:#4A6355;--tx3:#7A9A88;
+  --sh:0 1px 3px rgba(15,62,34,.08),0 4px 16px rgba(15,62,34,.06);
+  --sh2:0 1px 2px rgba(15,62,34,.06);--r:12px;--r2:8px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Cairo',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;font-size:14px}
+
+.login-screen{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:9999}
+.login-box{background:var(--sur);border:1px solid var(--bor);border-radius:var(--r);padding:36px 32px;width:100%;max-width:340px;box-shadow:var(--sh);text-align:center}
+.login-logo{font-size:44px;margin-bottom:8px}
+.login-title{font-size:20px;font-weight:700;color:var(--tx);margin-bottom:4px}
+.login-sub{font-size:13px;color:var(--tx3);margin-bottom:24px}
+.login-input{width:100%;padding:11px 14px;border-radius:var(--r2);border:1.5px solid var(--bor);background:var(--sur);color:var(--tx);font-size:15px;font-family:'Cairo',sans-serif;text-align:center;margin-bottom:10px}
+.login-input:focus{outline:none;border-color:var(--gm)}
+.login-btn{width:100%;padding:13px;border-radius:var(--r);border:none;background:linear-gradient(135deg,var(--gm),var(--gd));color:#fff;font-family:'Cairo',sans-serif;font-size:15px;font-weight:700;cursor:pointer;box-shadow:0 3px 10px rgba(26,92,56,.35)}
+.login-btn:disabled{opacity:.6;cursor:not-allowed}
+.login-error{font-size:12px;color:#C62828;margin-top:10px;display:none}
+
+.topbar{background:var(--gd);padding:0 20px;display:flex;align-items:center;justify-content:space-between;height:56px;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,.15)}
+.topbar-logo{display:flex;align-items:center;gap:10px;color:#fff;font-size:16px;font-weight:700}
+.topbar-right{display:flex;align-items:center;gap:6px}
+.sync-pill{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:20px;padding:4px 12px;font-size:12px;color:rgba(255,255,255,.85);cursor:pointer}
+.sync-dot{width:7px;height:7px;border-radius:50%;background:#8BC34A;transition:background .3s}
+.sync-dot.loading{background:#FFB300;animation:blink .8s infinite}
+.sync-dot.error{background:#EF5350}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+.tb-btn{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:20px;padding:3px 10px;font-size:11px;color:rgba(255,255,255,.9);cursor:pointer;font-family:'Cairo',sans-serif;text-decoration:none}
+
+.container{max-width:760px;margin:0 auto;padding:20px 16px 60px}
+
+/* بانر إشعار عمليات توزيع معلّقة */
+.pending-banner{background:var(--ap);border:1.5px solid var(--ab);border-radius:var(--r);padding:14px 16px;margin-bottom:16px;display:none}
+.pending-banner.show{display:block}
+.pending-banner h4{font-size:13px;font-weight:700;color:var(--ad);margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.pending-row{display:flex;justify-content:space-between;align-items:center;background:#fff;border-radius:7px;padding:8px 12px;margin-bottom:6px;font-size:12px}
+.pending-row:last-child{margin-bottom:0}
+
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px}
+.stat-card{background:var(--sur);border:1px solid var(--bor);border-radius:var(--r);padding:14px;text-align:center;box-shadow:var(--sh2)}
+.stat-card .n{font-size:26px;font-weight:700;color:var(--gm);line-height:1}
+.stat-card .l{font-size:11px;color:var(--tx2);margin-top:4px}
+
+.tabs{display:flex;gap:4px;background:var(--sur);border:1px solid var(--bor);border-radius:var(--r);padding:5px;margin-bottom:16px;box-shadow:var(--sh2);overflow-x:auto}
+.tab{flex:1;padding:9px 6px;border-radius:var(--r2);border:none;background:transparent;font-family:'Cairo',sans-serif;font-size:12.5px;font-weight:500;color:var(--tx2);cursor:pointer;transition:all .18s;display:flex;align-items:center;justify-content:center;gap:5px;white-space:nowrap}
+.tab.on{background:var(--gd);color:#fff;box-shadow:0 2px 8px rgba(15,62,34,.25)}
+.tab svg{width:14px;height:14px;flex-shrink:0}
+.pg{display:none}.pg.on{display:block}
+
+.card{background:var(--sur);border:1px solid var(--bor);border-radius:var(--r);padding:20px;margin-bottom:14px;box-shadow:var(--sh)}
+.card-title{font-size:15px;font-weight:700;color:var(--tx);margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--bor);display:flex;align-items:center;gap:8px}
+
+.ttabs2{display:flex;gap:0;border-bottom:1.5px solid var(--bor);margin-bottom:18px}
+.ttab2{padding:9px 16px;font-size:13px;cursor:pointer;border:none;background:none;color:var(--tx2);font-family:'Cairo',sans-serif;border-bottom:2.5px solid transparent;margin-bottom:-1.5px;transition:all .15s;display:flex;align-items:center;gap:6px}
+.ttab2 svg{width:14px;height:14px}
+.ttab2.on{color:var(--gd);border-bottom-color:var(--gm);font-weight:700}
+.opg{display:none}.opg.on{display:block}
+
+.field-row{display:grid;gap:12px;margin-bottom:14px}
+.field-row.two{grid-template-columns:1fr 1fr}
+.field-row.three{grid-template-columns:1fr 1fr 1fr}
+.field-group label{display:block;font-size:12px;font-weight:600;color:var(--tx2);margin-bottom:5px}
+input,select{width:100%;padding:10px 12px;border-radius:var(--r2);border:1.5px solid var(--bor);background:var(--sur);color:var(--tx);font-size:14px;font-family:'Cairo',sans-serif;transition:border-color .15s;-webkit-appearance:none}
+input:focus,select:focus{outline:none;border-color:var(--gm)}
+input[readonly]{background:var(--sur2);color:var(--tx2)}
+input::placeholder{color:var(--tx3)}
+
+.submit-btn{width:100%;padding:13px;border-radius:var(--r);border:none;font-family:'Cairo',sans-serif;font-size:15px;font-weight:700;cursor:pointer;color:#fff;display:flex;align-items:center;justify-content:center;gap:8px;transition:opacity .15s,transform .1s}
+.submit-btn:active{transform:scale(.98)}
+.submit-btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
+.btn-g{background:linear-gradient(135deg,var(--gm),var(--gd));box-shadow:0 3px 10px rgba(26,92,56,.35)}
+.btn-b{background:linear-gradient(135deg,var(--bm),var(--bd));box-shadow:0 3px 10px rgba(24,95,165,.35)}
+.btn-a{background:linear-gradient(135deg,var(--am),var(--ad));box-shadow:0 3px 10px rgba(168,87,0,.35)}
+.btn-p{background:linear-gradient(135deg,var(--pm),var(--pd));box-shadow:0 3px 10px rgba(123,31,162,.35)}
+.btn-flat{padding:9px 16px;border-radius:var(--r2);border:1.5px solid var(--bor);background:var(--sur);color:var(--tx2);font-family:'Cairo',sans-serif;font-size:13px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.btn-flat:hover{background:var(--sur2)}
+.btn-flat svg{width:14px;height:14px}
+
+.hint{font-size:11px;color:var(--tx3);margin-top:6px;padding:5px 10px;background:var(--sur2);border-radius:6px;border:1px solid var(--bor)}
+.op-hint{padding:10px 14px;background:var(--sur2);border:1px solid var(--bor);border-radius:var(--r2);font-size:13px;color:var(--tx2);margin-bottom:16px}
+.warn-box{display:none;background:var(--ap);border:1px solid #EF9F27;border-radius:var(--r2);padding:10px 14px;margin-top:12px;color:var(--ad);font-size:12.5px;align-items:center;gap:8px}
+.warn-box.show{display:flex}
+.err-box{display:none;background:#FCEBEB;border:1px solid #F09595;border-radius:var(--r2);padding:10px 14px;margin-top:12px;color:#791F1F;font-size:12.5px;align-items:center;gap:8px}
+.err-box.show{display:flex}
+.warn-box svg,.err-box svg{width:15px;height:15px;flex-shrink:0}
+
+/* اختيار الدفعة */
+.batch-list{border:1.5px solid var(--bor);border-radius:var(--r2);overflow:hidden}
+.batch-item{display:flex;align-items:center;gap:10px;padding:11px 14px;border-bottom:1px solid var(--bor);cursor:pointer;font-size:13px}
+.batch-item:last-child{border-bottom:none}
+.batch-item:hover{background:var(--gp)}
+.batch-item.sel{background:var(--gp);border-right:3px solid var(--gm)}
+.batch-item-code{font-family:monospace;font-weight:700;color:var(--gd)}
+.batch-item-meta{color:var(--tx3);flex:1;font-size:11.5px}
+.batch-item-qty{font-weight:700;color:var(--gm)}
+
+/* توزيع الترابيزات */
+.dist-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.dist-cell{border:1.5px solid var(--bor);border-radius:var(--r2);padding:8px;background:var(--sur2);text-align:center}
+.dist-cell.empty-row{grid-column:1/-1;height:8px;background:none;border:none}
+.dist-cell .code{font-size:11px;font-weight:700;color:var(--tx2);margin-bottom:2px}
+.dist-cell .avail{font-size:9.5px;color:var(--tx3);margin-bottom:5px}
+.dist-cell input{padding:6px 4px;font-size:12px;text-align:center;border-radius:6px}
+.dist-cell.full input{background:#F8ECEC;border-color:#E0A8A8}
+.dist-cell.hasqty{border-color:var(--gm);background:var(--gp)}
+.dist-total{display:flex;justify-content:space-between;align-items:center;background:var(--sur2);border-radius:var(--r2);padding:10px 14px;margin-top:12px;font-size:13px;font-weight:600}
+.dist-total.over{color:#791F1F;background:#FCEBEB}
+
+/* مراجعة قبل التنفيذ */
+.review-row{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--bor);font-size:13px}
+.review-row:last-child{border-bottom:none}
+
+/* شريط تقدم التنفيذ */
+.progress-list{display:flex;flex-direction:column;gap:6px;margin-top:12px}
+.progress-item{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:7px;font-size:12.5px;background:var(--sur2)}
+.progress-item.ok{background:var(--gp);color:var(--gd)}
+.progress-item.pending{background:var(--sur2);color:var(--tx2)}
+.progress-item.fail{background:#FCEBEB;color:#791F1F}
+.progress-item .st-ico{width:14px;flex-shrink:0}
+
+/* خريطة الصوبة */
+.legend{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.leg{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--tx2)}
+.leg-dot{width:13px;height:13px;border-radius:4px;border:1px solid var(--bor)}
+.gh-scroll{overflow-x:auto;padding-bottom:6px}
+.gh-table{border-collapse:separate;border-spacing:4px;margin:0 auto}
+.gh-th{font-size:11px;font-weight:700;color:var(--tx3);text-align:center;padding:3px 4px}
+.gh-rh{font-size:12px;font-weight:700;color:var(--gd);text-align:center;padding:2px 8px;white-space:nowrap;background:var(--gp);border-radius:6px}
+.gh-cell{width:74px;height:64px;border-radius:8px;border:1.5px solid var(--bor);text-align:center;vertical-align:middle;cursor:pointer;background:var(--sur2);transition:transform .1s}
+.gh-cell:hover{transform:scale(1.05)}
+.gh-cell.big{width:100px}
+.gh-cell .cc{font-size:10px;font-weight:700;display:block;color:var(--tx3)}
+.gh-cell .ccap{font-size:8px;display:block;color:var(--tx3);opacity:.8}
+.gh-cell .cv{font-size:9px;display:block;margin-top:1px;line-height:1.35;color:var(--tx2)}
+.gh-cell.bat{background:#D6F0E0;border-color:#4CAF50}.gh-cell.bat .cc{color:#1B5E20}
+.gh-cell.oak{background:#F8A8A8;border-color:#C62828}.gh-cell.oak .cc{color:#5C0000}
+.gh-cell.ros{background:#FCE4EC;border-color:#EC407A}.gh-cell.ros .cc{color:#880E4F}
+.gh-cell.bas{background:#A8D8B0;border-color:#2E7D32}.gh-cell.bas .cc{color:#1B4620}
+.gh-cell.mix{background:#EDE7F6;border-color:#7E57C2}.gh-cell.mix .cc{color:#311B92}
+.gh-cell.age-y{border-color:#F9A825!important;border-width:2.5px!important}
+.gh-cell.age-g{border-color:#2E7D32!important;border-width:2.5px!important}
+.gh-cell.age-r{border-color:#111111!important;border-width:3px!important}
+
+.sheet-link{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:var(--r2);border:1.5px solid var(--gb);background:var(--gp);color:var(--gd);font-family:'Cairo',sans-serif;font-size:13px;font-weight:600;text-decoration:none;margin-bottom:16px}
+
+.log-item{padding:12px 16px;background:var(--sur2);border-radius:var(--r2);border-right:3px solid var(--bor);display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:8px}
+.log-item.z{border-right-color:var(--gm)}.log-item.n{border-right-color:var(--bm)}.log-item.h{border-right-color:var(--am)}.log-item.m{border-right-color:var(--pm)}
+.log-main{font-size:14px;font-weight:600;color:var(--tx)}
+.log-meta{font-size:11px;color:var(--tx3);margin-top:4px;line-height:1.6}
+.badge{font-size:11px;padding:3px 10px;border-radius:20px;font-weight:700;white-space:nowrap;flex-shrink:0}
+.bz{background:var(--gp);color:var(--gd);border:1px solid var(--gb)}
+.bn{background:var(--bp);color:var(--bd);border:1px solid var(--bb)}
+.bh{background:var(--ap);color:var(--ad);border:1px solid var(--ab)}
+.bm{background:var(--pp);color:var(--pd);border:1px solid var(--pb)}
+.empty-msg{text-align:center;padding:40px 20px;color:var(--tx3);font-size:13px}
+
+.toast-wrap{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:999;pointer-events:none}
+.toast{background:var(--gd);color:#fff;padding:11px 22px;border-radius:30px;font-size:13px;font-weight:600;box-shadow:0 4px 20px rgba(0,0,0,.25);opacity:0;transform:translateY(10px);transition:opacity .25s,transform .25s;white-space:nowrap;max-width:92vw;text-align:center}
+.toast.on{opacity:1;transform:translateY(0)}.toast.err{background:#7B1D1D}
+
+@media(max-width:480px){
+  .field-row.three{grid-template-columns:1fr 1fr}
+  .field-row.three .field-group:last-child{grid-column:span 2}
+  .dist-grid{grid-template-columns:repeat(3,1fr)}
+}
+</style>
+</head>
+<body>
+
+<div class="login-screen" id="login-screen">
+  <div class="login-box">
+    <div class="login-logo">🌿</div>
+    <div class="login-title">1سبان ورقيات 15</div>
+    <div class="login-sub">نظام إدارة الصوبة</div>
+    <input class="login-input" type="text" id="login-user" placeholder="اسم المستخدم" autocomplete="username">
+    <input class="login-input" type="password" id="login-pass" placeholder="كلمة المرور" onkeydown="if(event.key==='Enter')doLogin()">
+    <button class="login-btn" id="login-btn" onclick="doLogin()">دخول</button>
+    <div class="login-error" id="login-error">اسم المستخدم أو كلمة المرور غلط</div>
+  </div>
+</div>
+
+<div class="topbar">
+  <div class="topbar-logo">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg>
+    1سبان ورقيات 15
+  </div>
+  <div class="topbar-right">
+    <span class="tb-btn" id="user-badge" style="display:none"></span>
+    <button class="tb-btn" onclick="doLogout()">خروج</button>
+    <div class="sync-pill" onclick="forceRefresh()" title="اضغط لتحديث البيانات">
+      <span class="sync-dot" id="sync-dot"></span>
+      <span id="sync-lbl">جاري التحميل...</span>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="pending-banner" id="pending-banner">
+    <h4>⚠️ عندك عمليات زراعة لسه مش مكتملة بالكامل</h4>
+    <div id="pending-list"></div>
+    <button class="btn-flat" style="margin-top:8px" onclick="showPage('reg');switchOp('zera')">فتح شاشة الزراعة لإكمالها</button>
+  </div>
+
+  <div class="stats">
+    <div class="stat-card"><div class="n" id="sn-tables">0</div><div class="l">ترابيزات مشغولة</div></div>
+    <div class="stat-card"><div class="n" id="sn-plants">0</div><div class="l">إجمالي النباتات</div></div>
+    <div class="stat-card"><div class="n" id="sn-free">0</div><div class="l">ترابيزات فاضية بالكامل</div></div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab on" onclick="showPage('reg',this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>تسجيل
+    </button>
+    <button class="tab" onclick="showPage('micro',this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="7" height="18"/><rect x="14" y="3" width="7" height="18"/></svg>حصاد الميكروجرين
+    </button>
+    <button class="tab" onclick="showPage('log',this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>السجل
+    </button>
+    <button class="tab" onclick="showPage('gh',this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>الصوبة
+    </button>
+    <button class="tab" onclick="showPage('exp',this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>تصدير
+    </button>
+  </div>
+
+  <!-- ══════ صفحة التسجيل ══════ -->
+  <div id="pg-reg" class="pg on">
+    <div class="ttabs2">
+      <button class="ttab2 on" id="op-zera-btn" onclick="switchOp('zera')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2a10 10 0 1 0 10 10"/><path d="M12 2v10l7 5"/></svg>زراعة من دفعة
+      </button>
+      <button class="ttab2" id="op-naql-btn" onclick="switchOp('naql')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>نقل بين الترابيزات
+      </button>
+      <button class="ttab2" id="op-hasad-btn" onclick="switchOp('hasad')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 3v18M6 3l12 6-12 6"/></svg>حصاد
+      </button>
+    </div>
+
+    <!-- ── زراعة من دفعة ── -->
+    <div id="opg-zera" class="opg on">
+      <div class="card">
+        <div class="card-title">🌱 زراعة من دفعة</div>
+        <div id="zera-step1">
+          <p style="font-size:13px;color:var(--tx2);margin-bottom:10px">اختر الدفعة اللي عايز تزرعها:</p>
+          <div class="batch-list" id="zera-batch-list"><div class="empty-msg">جارٍ تحميل الدفعات المتاحة...</div></div>
+        </div>
+        <div id="zera-step2" style="display:none;margin-top:18px">
+          <div class="hint" style="margin-bottom:14px" id="zera-batch-info"></div>
+          <p style="font-size:13px;font-weight:600;color:var(--tx);margin-bottom:10px">وزّع الكمية على الترابيزات (هيظهر بس الأماكن الفاضية):</p>
+          <div id="zera-dist-grid"></div>
+          <div class="dist-total" id="zera-total-box">الإجمالي الموزّع: 0 / 0</div>
+          <div class="err-box" id="zera-ebox"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span id="zera-ebox-txt"></span></div>
+          <div class="field-row two" style="margin-top:14px">
+            <div class="field-group"><label>المسؤول</label><input type="text" id="zera-resp" placeholder="اسم الشخص"></div>
+            <div class="field-group"><label>التاريخ</label><input type="date" id="zera-date"></div>
+          </div>
+          <button class="submit-btn btn-g" style="margin-top:10px" onclick="reviewZera()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>مراجعة قبل التنفيذ
+          </button>
+          <button class="btn-flat" style="margin-top:8px" onclick="resetZeraFlow()">إلغاء واختيار دفعة تانية</button>
+        </div>
+        <div id="zera-step3" style="display:none;margin-top:18px">
+          <p style="font-size:14px;font-weight:700;margin-bottom:10px">مراجعة نهائية</p>
+          <div id="zera-review-box"></div>
+          <button class="submit-btn btn-g" style="margin-top:14px" onclick="executeZera()" id="zera-confirm-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>تأكيد وتنفيذ الزراعة
+          </button>
+          <button class="btn-flat" style="margin-top:8px" onclick="document.getElementById('zera-step3').style.display='none';document.getElementById('zera-step2').style.display='block'">رجوع للتعديل</button>
+        </div>
+        <div id="zera-step4" style="display:none;margin-top:18px">
+          <p style="font-size:14px;font-weight:700;margin-bottom:10px">جارٍ التنفيذ...</p>
+          <div class="progress-list" id="zera-progress"></div>
+          <div id="zera-retry-wrap" style="display:none;margin-top:12px">
+            <button class="submit-btn btn-a" onclick="retryFailedZera()">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>إعادة محاولة الترابيزات الفاشلة
+            </button>
+          </div>
+          <button class="btn-flat" style="margin-top:12px" onclick="resetZeraFlow()">تم — العودة لاختيار دفعة جديدة</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── نقل بين ترابيزات ── -->
+    <div id="opg-naql" class="opg">
+      <div class="card">
+        <div class="card-title">🔄 نقل من ترابيزة لترابيزة</div>
+        <p style="font-size:12.5px;color:var(--tx2);margin-bottom:14px">لتجميع الكميات المتبقية في ترابيزات مختلفة في مكان واحد (لازم نفس الصنف).</p>
+        <div class="field-row two">
+          <div class="field-group"><label>من ترابيزة</label><select id="naql-from" onchange="onNaqlFromChange()"><option value="">-- اختر --</option></select></div>
+          <div class="field-group"><label>الصنف</label><input type="text" id="naql-crop" readonly placeholder="تلقائي"></div>
+        </div>
+        <div class="field-row two">
+          <div class="field-group"><label>إلى ترابيزة</label><select id="naql-to"><option value="">-- اختر --</option></select></div>
+          <div class="field-group"><label>الكمية</label><input type="number" id="naql-qty" min="1" placeholder="0" oninput="checkNaqlWarn()"></div>
+        </div>
+        <div class="warn-box" id="naql-wbox"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><span id="naql-wbox-txt"></span></div>
+        <div class="field-row two" style="margin-top:14px">
+          <div class="field-group"><label>المسؤول</label><input type="text" id="naql-resp" placeholder="اسم الشخص"></div>
+          <div class="field-group"><label>التاريخ</label><input type="date" id="naql-date"></div>
+        </div>
+        <button class="submit-btn btn-b" onclick="submitNaql()" id="naql-btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>تسجيل النقل
+        </button>
+      </div>
+    </div>
+
+    <!-- ── حصاد ── -->
+    <div id="opg-hasad" class="opg">
+      <div class="card">
+        <div class="card-title">✂️ تسجيل حصاد</div>
+        <div class="field-row two">
+          <div class="field-group"><label>الترابيزة</label><select id="hasad-table" onchange="onHasadTableChange()"><option value="">-- اختر --</option></select></div>
+          <div class="field-group"><label>الصنف</label><select id="hasad-crop"><option value="">-- اختر الترابيزة أولاً --</option></select></div>
+        </div>
+        <div class="field-row three">
+          <div class="field-group"><label>طريقة التشغيل</label><select id="hasad-method"><option>يدوي</option><option>آلي</option></select></div>
+          <div class="field-group"><label>عدد العيون المحصودة</label><input type="number" id="hasad-count" min="1" placeholder="0"></div>
+          <div class="field-group"><label>الوزن (جم)</label><input type="number" id="hasad-weight" min="0" placeholder="0"></div>
+        </div>
+        <div class="field-row two">
+          <div class="field-group"><label>حالة الجودة</label><select id="hasad-quality"><option>ممتاز</option><option>جيد</option><option>تالف</option></select></div>
+          <div class="field-group"><label>التاريخ</label><input type="date" id="hasad-date"></div>
+        </div>
+        <button class="submit-btn btn-a" onclick="submitHasad()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>تسجيل الحصاد
+        </button>
+
+        <div id="hasad-remaining-box" style="display:none;margin-top:18px;padding-top:16px;border-top:1.5px solid var(--bor)">
+          <p style="font-size:13px;font-weight:700;color:var(--tx);margin-bottom:8px">📌 تحديث العيون المتبقية (خاص بالريحان)</p>
+          <p style="font-size:12px;color:var(--tx2);margin-bottom:10px">الرقم ده مش مرتبط بعدد المحصود فوق — هو عدد النباتات الفعلي اللي لسه موجود في الترابيزة. لازم تحدّثه بنفسك بعد كل حصاد، ولما يوصل صفر الترابيزة تبقى فاضية بالكامل.</p>
+          <div class="field-row two">
+            <div class="field-group"><label>العيون المتبقية حاليًا</label><input type="number" id="remaining-current" readonly></div>
+            <div class="field-group"><label>العدد الفعلي بعد الحصاد ده</label><input type="number" id="remaining-new" min="0"></div>
+          </div>
+          <button class="btn-flat" onclick="submitRemainingUpdate()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>حفظ العيون المتبقية
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════ صفحة حصاد الميكروجرين ══════ -->
+  <div id="pg-micro" class="pg">
+    <div class="card">
+      <div class="card-title">🌾 حصاد الميكروجرين</div>
+      <p style="font-size:12.5px;color:var(--tx2);margin-bottom:14px">اختر دفعة الصواني، وسجّل عدد الصواني اللي حصدتها دلوقتي (يمكن حصاد جزئي) والوزن الناتج.</p>
+      <div id="micro-step1">
+        <p style="font-size:13px;color:var(--tx2);margin-bottom:10px">دفعات الصواني المتاحة:</p>
+        <div class="batch-list" id="micro-batch-list"><div class="empty-msg">جارٍ التحميل...</div></div>
+      </div>
+      <div id="micro-step2" style="display:none;margin-top:18px">
+        <div class="hint" style="margin-bottom:14px" id="micro-batch-info"></div>
+        <div class="field-row two">
+          <div class="field-group"><label>عدد الصواني المحصودة الآن</label><input type="number" id="micro-trays" min="1" oninput="checkMicroWarn()"></div>
+          <div class="field-group"><label>الوزن الناتج (جم)</label><input type="number" id="micro-weight" min="0"></div>
+        </div>
+        <div class="err-box" id="micro-ebox"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><span id="micro-ebox-txt"></span></div>
+        <div class="field-row two" style="margin-top:14px">
+          <div class="field-group"><label>المسؤول</label><input type="text" id="micro-resp" placeholder="اسم الشخص"></div>
+          <div class="field-group"><label>التاريخ</label><input type="date" id="micro-date"></div>
+        </div>
+        <button class="submit-btn btn-p" onclick="submitMicroHarvest()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>تسجيل حصاد الميكروجرين
+        </button>
+        <button class="btn-flat" style="margin-top:8px" onclick="resetMicroFlow()">إلغاء واختيار دفعة تانية</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════ صفحة السجل ══════ -->
+  <div id="pg-log" class="pg">
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+        <span style="font-size:15px;font-weight:700">سجل العمليات</span>
+        <select class="filt" id="log-filter" onchange="renderLog()" style="padding:6px 10px;border-radius:8px;border:1.5px solid var(--bor);font-size:12px">
+          <option value="">كل العمليات</option>
+          <option value="زراعة">زراعة</option><option value="نقل">نقل</option><option value="حصاد">حصاد</option><option value="ميكروجرين">حصاد ميكروجرين</option>
+        </select>
+      </div>
+      <div id="log-list"></div>
+    </div>
+  </div>
+
+  <!-- ══════ صفحة الصوبة ══════ -->
+  <div id="pg-gh" class="pg">
+    <div style="display:flex;justify-content:flex-end;margin-bottom:12px">
+      <button class="btn-flat" onclick="downloadGhPDF()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>طباعة / PDF
+      </button>
+    </div>
+    <div class="card">
+      <div class="card-title">🗺️ خريطة الصوبة الحالية</div>
+      <div class="legend">
+        <div class="leg"><div class="leg-dot" style="background:var(--sur2)"></div>فاضية</div>
+        <div class="leg"><div class="leg-dot" style="background:#D6F0E0;border-color:#4CAF50"></div>باتافيا</div>
+        <div class="leg"><div class="leg-dot" style="background:#F8A8A8;border-color:#C62828"></div>أوكليف</div>
+        <div class="leg"><div class="leg-dot" style="background:#FCE4EC;border-color:#EC407A"></div>روسا</div>
+        <div class="leg"><div class="leg-dot" style="background:#A8D8B0;border-color:#2E7D32"></div>ريحان</div>
+        <div class="leg"><div class="leg-dot" style="background:#EDE7F6;border-color:#7E57C2"></div>مختلط</div>
+        <div class="leg"><div class="leg-dot" style="background:#D6F0E0;border-color:#F9A825;border-width:2.5px"></div>20-25 يوم</div>
+        <div class="leg"><div class="leg-dot" style="background:#D6F0E0;border-color:#2E7D32;border-width:2.5px"></div>25-30 يوم</div>
+        <div class="leg"><div class="leg-dot" style="background:#D6F0E0;border-color:#111;border-width:3px"></div>+30 يوم</div>
+      </div>
+      <div class="gh-scroll"><div id="gh-map"></div></div>
+    </div>
+  </div>
+
+  <!-- ══════ صفحة التصدير ══════ -->
+  <div id="pg-exp" class="pg">
+    <div class="card">
+      <div class="card-title">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        تصدير البيانات
+      </div>
+      <p style="font-size:13px;color:var(--tx3);margin-bottom:16px;line-height:1.7">نزّل كل البيانات ملف CSV تفتحه في Excel مباشرة.</p>
+      <button class="submit-btn btn-g" onclick="exportCSV()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        تنزيل ملف CSV
+      </button>
+    </div>
+  </div>
+
+</div>
+
+<div class="toast-wrap"><div class="toast" id="toast"></div></div>
+
+<script>
+/* ══════════════════════════════════════════════
+   CONFIG — لازم تستبدل السطرين دول بالروابط الفعلية
+   بعد ما تعمل Deploy لكل Apps Script
+══════════════════════════════════════════════ */
+const SHARED_SCRIPT_URL='https://script.google.com/macros/s/AKfycbz5NKp8OgztGXRQCmv8dE16KxGfxrTh5pgZlZs_2NERVNYvnwDiIQUazQK_Vh8TEOeR3g/exec';
+const INV_SCRIPT_URL='%%INV_SCRIPT_URL%%';         // رابط Apps Script الخاص بشيت المخزون
+const GREENHOUSE_NAME='1سبان ورقيات 15';           // نفس الاسم اللي هيظهر في عمود "الصوبة" وكوجهة/مصدر في المخزون
+
+const ROWS=['A','B','C','D','E'];
+const LAYOUT={A:['L1','U2','U1'],B:['L2','U4','U3'],C:['L3','U6','U5'],D:['L4','U8','U7'],E:['L5','L6','L7']};
+const CAP={L1:192,U2:846,U1:192,L2:192,U4:846,U3:192,L3:192,U6:846,U5:192,L4:192,U8:846,U7:192,L5:192,L6:846,L7:192};
+const ALL_TABLES=Object.keys(CAP);
+const MULTI_HARVEST_CROPS=['ريحان']; // الأصناف اللي حصادها متعدد (مش بيفضي الترابيزة تلقائي)
+
+let movements=[],microHarvests=[],currentUser=null;
+let availableBatches=[],selectedZeraBatch=null,zeraAssignments={},zeraPlanResult=null,zeraProgress=[];
+let allInvBatches=[],selectedMicroBatch=null;
+
+/* ══════════════════════════════════════════════
+   AUTH
+══════════════════════════════════════════════ */
+function hasSharedScript(){return SHARED_SCRIPT_URL&&SHARED_SCRIPT_URL.includes('script.google.com')}
+function hasInvScript(){return INV_SCRIPT_URL&&INV_SCRIPT_URL.includes('script.google.com')}
+
+async function apiCall(url,params){
+  try{const full=url+'?'+new URLSearchParams(params).toString();const res=await fetch(full,{mode:'cors'});return await res.json();}catch(e){}
+  return new Promise((resolve,reject)=>{
+    const cb='api_'+Date.now()+Math.floor(Math.random()*9999);
+    const s=document.createElement('script');
+    window[cb]=(data)=>{delete window[cb];try{document.head.removeChild(s);}catch(e){}resolve(data);};
+    s.onerror=()=>{delete window[cb];reject(new Error('failed'));};
+    setTimeout(()=>{delete window[cb];try{document.head.removeChild(s);}catch(e){}reject(new Error('timeout'));},9000);
+    s.src=url+'?'+new URLSearchParams(params).toString()+'&callback='+cb;
+    document.head.appendChild(s);
+  });
+}
+/* أكشنز القراءة (get*) — بتبعت اسم الصوبة عشان السيرفر يفلتر ويرجّع صفوفها بس */
+async function sharedGet(action){
+  if(!hasSharedScript())return null;
+  try{return await apiCall(SHARED_SCRIPT_URL,{action,greenhouse:GREENHOUSE_NAME});}catch(e){return null}
+}
+/* أكشنز الإضافة (add*) — بتضيف اسم الصوبة تلقائيًا لأي بيانات مبعوتة */
+async function sharedPost(action,body){
+  if(!hasSharedScript())return null;
+  try{
+    const r=await fetch(SHARED_SCRIPT_URL+'?action='+action,{method:'POST',body:JSON.stringify({...body,greenhouse:GREENHOUSE_NAME})});
+    return await r.json();
+  }catch(e){return null}
+}
+async function invApi(action,body){if(!hasInvScript())return null;try{
+  if(body){const r=await fetch(INV_SCRIPT_URL+'?action='+action,{method:'POST',body:JSON.stringify(body)});return await r.json();}
+  return await apiCall(INV_SCRIPT_URL,{action});
+}catch(e){return null}}
+
+async function doLogin(){
+  const u=document.getElementById('login-user').value.trim();
+  const p=document.getElementById('login-pass').value;
+  const err=document.getElementById('login-error');
+  const btn=document.getElementById('login-btn');
+  err.style.display='none';
+  if(!u||!p){err.style.display='block';err.textContent='اكتب اسم المستخدم وكلمة المرور';return;}
+  btn.disabled=true;btn.textContent='جاري التحقق...';
+  let json=null;
+  if(hasSharedScript()){try{json=await sharedPost('login',{username:u,password:p});}catch(e){}}
+  if(json&&json.ok){
+    currentUser={username:u,role:json.role||'مستخدم'};
+    sessionStorage.setItem('gh1_user',JSON.stringify(currentUser));
+    showApp();
+  }else if(!hasSharedScript()&&u&&p){
+    // وضع تجريبي بدون Apps Script مربوط
+    currentUser={username:u,role:'مستخدم'};
+    sessionStorage.setItem('gh1_user',JSON.stringify(currentUser));
+    showApp();
+  }else{
+    err.style.display='block';err.textContent='اسم المستخدم أو كلمة المرور غلط';
+  }
+  btn.disabled=false;btn.textContent='دخول';
+}
+function showApp(){
+  document.getElementById('login-screen').style.display='none';
+  const badge=document.getElementById('user-badge');
+  badge.textContent='👤 '+currentUser.username;badge.style.display='block';
+  loadAll();
+}
+function doLogout(){
+  currentUser=null;sessionStorage.removeItem('gh1_user');
+  document.getElementById('login-screen').style.display='flex';
+}
+function checkSession(){
+  const s=sessionStorage.getItem('gh1_user');
+  if(s){try{currentUser=JSON.parse(s);showApp();}catch(e){}}
+}
+
+/* ══════════════════════════════════════════════
+   UTILITIES
+══════════════════════════════════════════════ */
+function fmt(n){return Number(n).toLocaleString('en-US')}
+function ymd(d){return d.toISOString().split('T')[0]}
+function todayStr(){return ymd(new Date())}
+function setSyncing(t){document.getElementById('sync-dot').className='sync-dot loading';document.getElementById('sync-lbl').textContent=t||'جارٍ التحميل...'}
+function setSynced(){document.getElementById('sync-dot').className='sync-dot';document.getElementById('sync-lbl').textContent='متصل ✓'}
+function setSyncErr(){document.getElementById('sync-dot').className='sync-dot error';document.getElementById('sync-lbl').textContent='تعذر الاتصال'}
+let _tt;
+function showToast(msg,isErr=false,dur=3500){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.className='toast on'+(isErr?' err':'');
+  clearTimeout(_tt);_tt=setTimeout(()=>t.className='toast',dur);
+}
+function showPage(id,el){
+  document.querySelectorAll('.pg').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));
+  document.getElementById('pg-'+id).classList.add('on');
+  if(el)el.classList.add('on');
+  else{const btn=[...document.querySelectorAll('.tab')].find(b=>b.getAttribute('onclick').includes("'"+id+"'"));if(btn)btn.classList.add('on');}
+  if(id==='log')renderLog();
+  if(id==='gh')renderGhMap();
+  if(id==='micro'&&!allInvBatches.length)loadMicroBatches();
+}
+function crop2cls(crop){
+  if(!crop)return'';
+  if(crop.includes('باتافيا'))return'bat';
+  if(crop.includes('أوكليف')||crop.includes('اوكليف'))return'oak';
+  if(crop.includes('روسا'))return'ros';
+  if(crop.includes('ريحان'))return'bas';
+  return'mix';
+}
+function isMultiHarvest(crop){return MULTI_HARVEST_CROPS.some(c=>crop&&crop.includes(c));}
+function ageDays(dateStr){
+  if(!dateStr||!dateStr.match(/^\d{4}-\d{2}-\d{2}$/))return -1;
+  const[y,m,d]=dateStr.split('-').map(Number);
+  const t=new Date();
+  const diff=Math.floor((Date.UTC(t.getFullYear(),t.getMonth(),t.getDate())-Date.UTC(y,m-1,d))/86400000);
+  return diff>=0&&diff<3650?diff:-1;
+}
+function ageCls(days){if(days>=30)return'age-r';if(days>=25)return'age-g';if(days>=20)return'age-y';return'';}
+
+/* ══════════════════════════════════════════════
+   DATA LOAD
+══════════════════════════════════════════════ */
+async function loadAll(){
+  setSyncing('جارٍ التحميل...');
+  if(hasSharedScript()){
+    const [pr,tr,hr,rr,mr]=await Promise.all([
+      sharedGet('getPlanting'),sharedGet('getTransfers'),sharedGet('getHarvests'),sharedGet('getRemainingUpdates'),sharedGet('getMicroHarvests')
+    ]);
+    movements=mergeMovements(pr,tr,hr,rr);
+    if(mr&&mr.data)microHarvests=parseMicroHarvests(mr.data);
+    setSynced();
+  }else{setSyncErr();}
+  renderStats();renderLog();populateNaqlSelects();populateHasadSelect();
+  checkPendingPlans();
+  if(document.getElementById('pg-gh').classList.contains('on'))renderGhMap();
+  ['zera-date','naql-date','hasad-date','micro-date'].forEach(id=>{const el=document.getElementById(id);if(el&&!el.value)el.value=todayStr();});
+}
+function forceRefresh(){loadAll();}
+/* دمج الشيتات الأربعة في مصفوفة حركات موحّدة، مرتّبة زمنيًا من الأقدم للأحدث */
+function mergeMovements(pr,tr,hr,rr){
+  const list=[];
+  if(pr&&pr.data)pr.data.slice(1).filter(r=>r[0]).forEach(r=>list.push({type:'زراعة',section:String(r[1]||''),table:String(r[2]||''),toTable:'',crop:String(r[3]||''),qty:parseFloat(r[4])||0,weight:0,method:'',quality:'',batch:String(r[5]||''),user:String(r[6]||''),date:String(r[7]||'')}));
+  if(tr&&tr.data)tr.data.slice(1).filter(r=>r[0]).forEach(r=>list.push({type:'نقل',section:'',table:String(r[1]||''),toTable:String(r[2]||''),crop:String(r[3]||''),qty:parseFloat(r[4])||0,weight:0,method:'',quality:'',batch:'',user:String(r[5]||''),date:String(r[6]||'')}));
+  if(hr&&hr.data)hr.data.slice(1).filter(r=>r[0]).forEach(r=>list.push({type:'حصاد',section:String(r[1]||''),table:String(r[2]||''),toTable:'',crop:String(r[3]||''),qty:parseFloat(r[5])||0,weight:parseFloat(r[6])||0,method:String(r[4]||''),quality:String(r[7]||''),batch:'',user:String(r[8]||''),date:String(r[9]||'')}));
+  if(rr&&rr.data)rr.data.slice(1).filter(r=>r[0]).forEach(r=>list.push({type:'تحديث_متبقي',section:'',table:String(r[1]||''),toTable:'',crop:String(r[2]||''),qty:parseFloat(r[3])||0,weight:0,method:'',quality:'',batch:'',user:String(r[4]||''),date:String(r[5]||'')}));
+  list.sort((a,b)=>a.date<b.date?-1:a.date>b.date?1:0); // الأقدم أولاً
+  return list;
+}
+function parseMicroHarvests(data){
+  return data.slice(1).filter(r=>r[0]).map(r=>({batch:String(r[1]||''),trays:parseFloat(r[2])||0,weight:parseFloat(r[3])||0,user:String(r[4]||''),date:String(r[5]||'')}));
+}
+
+/* ══════════════════════════════════════════════
+   STATE COMPUTATION (حالة الترابيزات من سجل الحركات)
+══════════════════════════════════════════════ */
+function computeState(){
+  const state={};
+  ALL_TABLES.forEach(t=>state[t]={crops:{},date:null});
+  const ordered=movements; // أصلاً مرتبة من الأقدم للأحدث بعد mergeMovements
+  ordered.forEach(m=>{
+    if(m.type==='زراعة'){
+      const s=state[m.table];if(!s)return;
+      s.crops[m.crop]=(s.crops[m.crop]||0)+m.qty;
+      if(!s.date||m.date<s.date)s.date=m.date;
+    }
+    if(m.type==='نقل'){
+      const sFrom=state[m.table],sTo=state[m.toTable];
+      if(sFrom){sFrom.crops[m.crop]=Math.max(0,(sFrom.crops[m.crop]||0)-m.qty);if(sFrom.crops[m.crop]<=0)delete sFrom.crops[m.crop];}
+      if(sTo){sTo.crops[m.crop]=(sTo.crops[m.crop]||0)+m.qty;if(!sTo.date)sTo.date=m.date;}
+    }
+    if(m.type==='حصاد'&&!isMultiHarvest(m.crop)){
+      const s=state[m.table];if(!s)return;
+      s.crops[m.crop]=Math.max(0,(s.crops[m.crop]||0)-m.qty);
+      if(s.crops[m.crop]<=0)delete s.crops[m.crop];
+    }
+    // حصاد الريحان: ما بيغيرش الكمية القائمة (منفصل تمامًا)
+    if(m.type==='تحديث_متبقي'){
+      const s=state[m.table];if(!s)return;
+      if(m.qty<=0)delete s.crops[m.crop];
+      else s.crops[m.crop]=m.qty;
+    }
+  });
+  Object.values(state).forEach(s=>{s.total=Object.values(s.crops).reduce((a,b)=>a+b,0);if(s.total<=0)s.date=null;});
+  return state;
+}
+
+/* ══════════════════════════════════════════════
+   RENDER: STATS + خريطة الصوبة
+══════════════════════════════════════════════ */
+function renderStats(){
+  const state=computeState();
+  let occupied=0,plants=0,free=0;
+  ALL_TABLES.forEach(t=>{if(state[t].total>0){occupied++;plants+=state[t].total;}else free++;});
+  document.getElementById('sn-tables').textContent=occupied;
+  document.getElementById('sn-plants').textContent=fmt(plants);
+  document.getElementById('sn-free').textContent=free;
+}
+function renderGhMap(){
+  const state=computeState();
+  let h='<table class="gh-table"><tbody>';
+  ROWS.forEach(row=>{
+    h+='<tr>';
+    LAYOUT[row].forEach(code=>{
+      const s=state[code];const has=s&&s.total>0;
+      let cls='',cv='';
+      if(has){
+        const crops=Object.keys(s.crops).filter(c=>s.crops[c]>0);
+        cls=crops.length>1?'mix':crop2cls(crops[0]);
+        const days=s.date?ageDays(s.date):-1;
+        cls+=' '+ageCls(days);
+        cv=`${fmt(s.total)}/${CAP[code]}<br>${days>=0?days+'د':''}`;
+      }
+      h+=`<td class="gh-cell ${CAP[code]>500?'big':''} ${cls}" onclick="cellInfo('${code}')"><span class="cc">${code}</span><span class="ccap">سعة ${CAP[code]}</span><span class="cv">${cv}</span></td>`;
+    });
+    h+='</tr>';
+  });
+  h+='</tbody></table>';
+  document.getElementById('gh-map').innerHTML=h;
+}
+function cellInfo(code){
+  const state=computeState();const s=state[code];
+  if(!s||s.total<=0){showToast(`${code} — فاضية بالكامل (سعة ${CAP[code]})`);return;}
+  const crops=Object.entries(s.crops).filter(([,n])=>n>0).map(([c,n])=>`${c}: ${n}`).join(' | ');
+  const days=s.date?ageDays(s.date):-1;
+  showToast(`${code} · ${crops} · إجمالي ${s.total}/${CAP[code]}${days>=0?' · العمر: '+days+' يوم':''}`,false,5500);
+}
+
+/* ══════════════════════════════════════════════
+   زراعة من دفعة
+══════════════════════════════════════════════ */
+function switchOp(op){
+  document.querySelectorAll('.ttab2').forEach(b=>b.classList.remove('on'));
+  document.querySelectorAll('.opg').forEach(p=>p.classList.remove('on'));
+  document.getElementById('op-'+op+'-btn').classList.add('on');
+  document.getElementById('opg-'+op).classList.add('on');
+  if(op==='zera'&&!availableBatches.length)loadAvailableBatches();
+}
+async function loadAvailableBatches(){
+  const box=document.getElementById('zera-batch-list');
+  box.innerHTML='<div class="empty-msg">جارٍ تحميل الدفعات...</div>';
+  if(!hasInvScript()){box.innerHTML='<div class="empty-msg">لازم تربط رابط شيت المخزون (INV_SCRIPT_URL) الأول</div>';return;}
+  const r=await invApi('getAvailableBatches');
+  if(r&&r.ok&&r.data){
+    availableBatches=r.data;
+    if(!availableBatches.length){box.innerHTML='<div class="empty-msg">مفيش دفعات متاحة للزراعة حاليًا</div>';return;}
+    box.innerHTML=availableBatches.map(b=>`<div class="batch-item" onclick="selectZeraBatch('${b.code}')">
+      <span class="batch-item-code">${b.code}</span>
+      <span class="batch-item-meta">${b.product} · أُنتج ${b.date}${b.source?' · '+b.source:''}</span>
+      <span class="batch-item-qty">${fmt(b.remaining)} متاح</span>
+    </div>`).join('');
+  }else{box.innerHTML='<div class="empty-msg">تعذر تحميل الدفعات — تأكد من رابط شيت المخزون</div>';}
+}
+function selectZeraBatch(code){
+  selectedZeraBatch=availableBatches.find(b=>b.code===code);
+  if(!selectedZeraBatch)return;
+  zeraAssignments={};
+  document.getElementById('zera-step1').style.display='none';
+  document.getElementById('zera-step2').style.display='block';
+  document.getElementById('zera-batch-info').innerHTML=`الدفعة <strong>${selectedZeraBatch.code}</strong> — ${selectedZeraBatch.product} — المتاح: <strong>${fmt(selectedZeraBatch.remaining)}</strong>`;
+  renderDistGrid();
+}
+function renderDistGrid(){
+  const state=computeState();
+  let h='<div class="dist-grid">';
+  ROWS.forEach(row=>{
+    LAYOUT[row].forEach(code=>{
+      const occ=state[code].total;
+      const avail=CAP[code]-occ;
+      const val=zeraAssignments[code]||0;
+      h+=`<div class="dist-cell${avail<=0?' full':''}${val>0?' hasqty':''}" id="dist-cell-${code}">
+        <div class="code">${code}</div>
+        <div class="avail">فاضي: ${avail}</div>
+        <input type="number" min="0" max="${avail}" value="${val||''}" placeholder="0" ${avail<=0?'disabled':''} oninput="onDistInput('${code}',this)">
+      </div>`;
+    });
+  });
+  h+='</div>';
+  document.getElementById('zera-dist-grid').innerHTML=h;
+  updateDistTotal();
+}
+function onDistInput(code,el){
+  const state=computeState();
+  const avail=CAP[code]-state[code].total;
+  let v=parseInt(el.value)||0;
+  if(v<0)v=0;
+  if(v>avail)v=avail;
+  el.value=v||'';
+  if(v>0)zeraAssignments[code]=v;else delete zeraAssignments[code];
+  document.getElementById('dist-cell-'+code).classList.toggle('hasqty',v>0);
+  updateDistTotal();
+}
+function updateDistTotal(){
+  const total=Object.values(zeraAssignments).reduce((a,b)=>a+b,0);
+  const box=document.getElementById('zera-total-box');
+  const rem=selectedZeraBatch?selectedZeraBatch.remaining:0;
+  box.textContent=`الإجمالي الموزّع: ${fmt(total)} / ${fmt(rem)}`;
+  box.classList.toggle('over',total>rem);
+  return total;
+}
+function resetZeraFlow(){
+  selectedZeraBatch=null;zeraAssignments={};zeraPlanResult=null;zeraProgress=[];
+  document.getElementById('zera-step1').style.display='block';
+  document.getElementById('zera-step2').style.display='none';
+  document.getElementById('zera-step3').style.display='none';
+  document.getElementById('zera-step4').style.display='none';
+  loadAvailableBatches();
+}
+function reviewZera(){
+  const eb=document.getElementById('zera-ebox');eb.className='err-box';
+  const total=updateDistTotal();
+  if(total<=0){eb.className='err-box show';document.getElementById('zera-ebox-txt').textContent='وزّع كمية على ترابيزة واحدة على الأقل';return;}
+  if(total>selectedZeraBatch.remaining){eb.className='err-box show';document.getElementById('zera-ebox-txt').textContent='الإجمالي أكبر من رصيد الدفعة';return;}
+  const resp=document.getElementById('zera-resp').value.trim();
+  document.getElementById('zera-step2').style.display='none';
+  document.getElementById('zera-step3').style.display='block';
+  const rows=Object.entries(zeraAssignments).map(([code,qty])=>`<div class="review-row"><span>ترابيزة ${code}</span><span><strong>${fmt(qty)}</strong></span></div>`).join('');
+  document.getElementById('zera-review-box').innerHTML=`
+    <div class="review-row"><span>الدفعة</span><span><strong>${selectedZeraBatch.code}</strong></span></div>
+    <div class="review-row"><span>الصنف</span><span>${selectedZeraBatch.product}</span></div>
+    <div class="review-row"><span>الإجمالي</span><span><strong>${fmt(total)}</strong></span></div>
+    ${rows}
+    <div class="review-row"><span>المسؤول</span><span>${resp||'—'}</span></div>`;
+}
+async function executeZera(){
+  document.getElementById('zera-step3').style.display='none';
+  document.getElementById('zera-step4').style.display='block';
+  const btn=document.getElementById('zera-confirm-btn');
+  const resp=document.getElementById('zera-resp').value.trim()||currentUser?.username||'';
+  const date=document.getElementById('zera-date').value||todayStr();
+  const assignments=Object.entries(zeraAssignments).map(([table,qty])=>({table,qty}));
+  const progList=document.getElementById('zera-progress');
+  progList.innerHTML='<div class="progress-item pending">⏳ جارٍ خصم الدفعة من المخزون...</div>';
+
+  const planRes=await invApi('planDistribution',{
+    batchCode:selectedZeraBatch.code,product:selectedZeraBatch.product,unit:'',
+    source:GREENHOUSE_NAME,user:resp,date,assignments
+  });
+  if(!planRes||!planRes.ok){
+    progList.innerHTML=`<div class="progress-item fail">❌ فشل خصم الدفعة (${planRes&&planRes.error?planRes.error:'خطأ اتصال'}) — لم يتم تسجيل أي ترابيزة</div>`;
+    return;
+  }
+  zeraProgress=assignments.map(a=>({...a,status:'pending'}));
+  renderZeraProgress();
+  for(const a of zeraProgress){
+    if(a.status==='ok')continue;
+    const r=await sharedPost('addPlanting',{section:'',table:a.table,crop:selectedZeraBatch.product,qty:a.qty,batch:selectedZeraBatch.code,user:resp,date});
+    if(r&&r.ok){
+      a.status='ok';
+      await invApi('updatePlantingStatus',{batchCode:selectedZeraBatch.code,table:a.table});
+    }else{a.status='fail';}
+    renderZeraProgress();
+  }
+  await loadAll();
+  const failed=zeraProgress.filter(a=>a.status==='fail');
+  document.getElementById('zera-retry-wrap').style.display=failed.length?'block':'none';
+  if(!failed.length)showToast('تم تسجيل الزراعة في كل الترابيزات بنجاح ✓');
+  else showToast(`تم تسجيل ${zeraProgress.length-failed.length} من ${zeraProgress.length} — فيه ترابيزات فشلت`,true);
+}
+function renderZeraProgress(){
+  document.getElementById('zera-progress').innerHTML=zeraProgress.map(a=>{
+    const ico=a.status==='ok'?'✅':a.status==='fail'?'❌':'⏳';
+    const cls=a.status==='ok'?'ok':a.status==='fail'?'fail':'pending';
+    return `<div class="progress-item ${cls}">${ico} ترابيزة ${a.table} — ${fmt(a.qty)}</div>`;
+  }).join('');
+}
+async function retryFailedZera(){
+  const btn=document.querySelector('#zera-retry-wrap button');
+  for(const a of zeraProgress){
+    if(a.status!=='fail')continue;
+    a.status='pending';renderZeraProgress();
+    const resp=document.getElementById('zera-resp').value.trim()||currentUser?.username||'';
+    const date=document.getElementById('zera-date').value||todayStr();
+    const r=await sharedPost('addPlanting',{section:'',table:a.table,crop:selectedZeraBatch.product,qty:a.qty,batch:selectedZeraBatch.code,user:resp,date});
+    if(r&&r.ok){a.status='ok';await invApi('updatePlantingStatus',{batchCode:selectedZeraBatch.code,table:a.table});}
+    else a.status='fail';
+    renderZeraProgress();
+  }
+  await loadAll();
+  const failed=zeraProgress.filter(a=>a.status==='fail');
+  document.getElementById('zera-retry-wrap').style.display=failed.length?'block':'none';
+  if(!failed.length)showToast('تم استكمال كل الترابيزات بنجاح ✓');
+}
+
+/* فحص عمليات توزيع معلّقة (من جهاز/جلسة تانية أو بعد جنّة) */
+async function checkPendingPlans(){
+  if(!hasInvScript())return;
+  const r=await invApi('getPlantingStatus');
+  if(!r||!r.data)return;
+  const rows=r.data.slice(1).filter(x=>x[0]&&String(x[6])===GREENHOUSE_NAME&&x[5]==='لم يُنفذ');
+  const banner=document.getElementById('pending-banner');
+  if(!rows.length){banner.classList.remove('show');return;}
+  const byBatch={};
+  rows.forEach(r=>{if(!byBatch[r[0]])byBatch[r[0]]={product:r[1],tables:[]};byBatch[r[0]].tables.push(r[3]+' ('+r[4]+')');});
+  document.getElementById('pending-list').innerHTML=Object.entries(byBatch).map(([code,d])=>
+    `<div class="pending-row"><span>${code} — ${d.product}</span><span>${d.tables.join('، ')}</span></div>`).join('');
+  banner.classList.add('show');
+}
+
+/* ══════════════════════════════════════════════
+   نقل بين ترابيزات
+══════════════════════════════════════════════ */
+function populateNaqlSelects(){
+  const state=computeState();
+  const occupied=ALL_TABLES.filter(t=>state[t].total>0);
+  const fromSel=document.getElementById('naql-from');
+  const cur=fromSel.value;
+  fromSel.innerHTML='<option value="">-- اختر --</option>'+occupied.map(t=>`<option value="${t}"${t===cur?' selected':''}>${t} (${state[t].total}/${CAP[t]})</option>`).join('');
+  const toSel=document.getElementById('naql-to');
+  toSel.innerHTML='<option value="">-- اختر --</option>'+ALL_TABLES.map(t=>`<option value="${t}">${t} (فاضي ${CAP[t]-state[t].total})</option>`).join('');
+}
+function onNaqlFromChange(){
+  const t=document.getElementById('naql-from').value;
+  const state=computeState();
+  const s=state[t];
+  const cropSel=document.getElementById('naql-crop');
+  if(!s||!Object.keys(s.crops).length){cropSel.value='';return;}
+  const crops=Object.entries(s.crops).filter(([,n])=>n>0);
+  cropSel.value=crops.length===1?crops[0][0]+' ('+crops[0][1]+' متاح)':crops.map(([c,n])=>c+':'+n).join(' | ');
+  checkNaqlWarn();
+}
+function checkNaqlWarn(){
+  const wb=document.getElementById('naql-wbox');wb.className='warn-box';
+  const from=document.getElementById('naql-from').value,to=document.getElementById('naql-to').value;
+  const qty=parseInt(document.getElementById('naql-qty').value)||0;
+  if(!from||!to||!qty)return;
+  const state=computeState();
+  if(to){const avail=CAP[to]-state[to].total;if(qty>avail){wb.className='warn-box show';document.getElementById('naql-wbox-txt').textContent=`الترابيزة الهدف فاضي فيها ${avail} بس`;}}
+}
+async function submitNaql(){
+  const from=document.getElementById('naql-from').value,to=document.getElementById('naql-to').value;
+  const qty=parseInt(document.getElementById('naql-qty').value);
+  const resp=document.getElementById('naql-resp').value.trim()||currentUser?.username||'';
+  const date=document.getElementById('naql-date').value||todayStr();
+  if(!from||!to){showToast('اختر ترابيزة المصدر والهدف','err');return}
+  if(from===to){showToast('اختر ترابيزتين مختلفتين','err');return}
+  if(!qty||qty<=0){showToast('أدخل كمية صحيحة','err');return}
+  const state=computeState();
+  const sFrom=state[from];
+  const crops=Object.entries(sFrom.crops).filter(([,n])=>n>0);
+  if(crops.length!==1){showToast('الترابيزة المصدر لازم يكون فيها صنف واحد بس عشان النقل يبقى واضح','err');return}
+  const crop=crops[0][0],avail=crops[0][1];
+  if(qty>avail){showToast(`المتاح في ترابيزة ${from} هو ${avail} بس`,'err');return}
+  const toAvail=CAP[to]-state[to].total;
+  if(qty>toAvail){showToast(`الترابيزة الهدف فاضي فيها ${toAvail} بس`,'err');return}
+  const sTo=state[to];
+  const toCropsPresent=Object.keys(sTo.crops).filter(c=>sTo.crops[c]>0);
+  if(toCropsPresent.length&&!toCropsPresent.includes(crop)){
+    if(!confirm(`الترابيزة ${to} فيها صنف مختلف (${toCropsPresent.join(',')}) — هيبقى فيها خليط. تكمل؟`))return;
+  }
+  setSyncing('جارٍ الحفظ...');
+  const r=await sharedPost('addTransfer',{from,to,crop,qty,user:resp,date});
+  if(r&&r.ok){
+    document.getElementById('naql-qty').value='';
+    await loadAll();
+    showToast(`تم نقل ${fmt(qty)} من ${from} إلى ${to}`);
+  }else{showToast('فشل الحفظ','err');}
+  setSynced();
+}
+
+/* ══════════════════════════════════════════════
+   حصاد
+══════════════════════════════════════════════ */
+function populateHasadSelect(){
+  const state=computeState();
+  const occupied=ALL_TABLES.filter(t=>state[t].total>0);
+  const sel=document.getElementById('hasad-table');
+  const cur=sel.value;
+  sel.innerHTML='<option value="">-- اختر --</option>'+occupied.map(t=>`<option value="${t}"${t===cur?' selected':''}>${t} (${state[t].total}/${CAP[t]})</option>`).join('');
+  onHasadTableChange();
+}
+function onHasadTableChange(){
+  const t=document.getElementById('hasad-table').value;
+  const state=computeState();
+  const cropSel=document.getElementById('hasad-crop');
+  const remBox=document.getElementById('hasad-remaining-box');
+  if(!t||!state[t]){cropSel.innerHTML='<option value="">-- اختر الترابيزة أولاً --</option>';remBox.style.display='none';return;}
+  const crops=Object.entries(state[t].crops).filter(([,n])=>n>0);
+  cropSel.innerHTML=crops.map(([c,n])=>`<option value="${c}">${c} (${n} متاح)</option>`).join('')||'<option value="">لا يوجد</option>';
+  onHasadCropChange();
+  cropSel.onchange=onHasadCropChange;
+}
+function onHasadCropChange(){
+  const t=document.getElementById('hasad-table').value;
+  const crop=document.getElementById('hasad-crop').value;
+  const remBox=document.getElementById('hasad-remaining-box');
+  if(!t||!crop||!isMultiHarvest(crop)){remBox.style.display='none';return;}
+  const state=computeState();
+  const cur=state[t].crops[crop]||0;
+  remBox.style.display='block';
+  document.getElementById('remaining-current').value=cur;
+  document.getElementById('remaining-new').value='';
+}
+async function submitHasad(){
+  const table=document.getElementById('hasad-table').value;
+  const crop=document.getElementById('hasad-crop').value;
+  const method=document.getElementById('hasad-method').value;
+  const count=parseInt(document.getElementById('hasad-count').value);
+  const weight=parseFloat(document.getElementById('hasad-weight').value)||0;
+  const quality=document.getElementById('hasad-quality').value;
+  const date=document.getElementById('hasad-date').value||todayStr();
+  if(!table||!crop){showToast('اختر الترابيزة والصنف','err');return}
+  if(!count||count<=0){showToast('أدخل عدد العيون المحصودة','err');return}
+  if(!isMultiHarvest(crop)){
+    const state=computeState();
+    const avail=state[table].crops[crop]||0;
+    if(count>avail){showToast(`المتاح للحصاد ${avail} فقط`,'err');return}
+  }
+  setSyncing('جارٍ الحفظ...');
+  const r=await sharedPost('addHarvest',{section:'',table,crop,method,qty:count,weight,quality,user:currentUser?.username||'',date});
+  if(r&&r.ok){
+    document.getElementById('hasad-count').value='';document.getElementById('hasad-weight').value='';
+    await loadAll();
+    showToast(`تم تسجيل حصاد ${fmt(count)} من ${table}`);
+  }else{showToast('فشل الحفظ','err');}
+  setSynced();
+}
+async function submitRemainingUpdate(){
+  const table=document.getElementById('hasad-table').value;
+  const crop=document.getElementById('hasad-crop').value;
+  const newVal=parseInt(document.getElementById('remaining-new').value);
+  const date=document.getElementById('hasad-date').value||todayStr();
+  if(!table||!crop){showToast('اختر الترابيزة والصنف','err');return}
+  if(newVal===''||isNaN(newVal)||newVal<0){showToast('أدخل رقم صحيح (يمكن صفر)','err');return}
+  setSyncing('جارٍ الحفظ...');
+  const r=await sharedPost('addRemainingUpdate',{table,crop,qty:newVal,user:currentUser?.username||'',date});
+  if(r&&r.ok){
+    await loadAll();
+    showToast(newVal===0?`تم — ترابيزة ${table} بقت فاضية بالكامل`:`تم تحديث المتبقي: ${newVal}`);
+  }else{showToast('فشل الحفظ','err');}
+  setSynced();
+}
+
+/* ══════════════════════════════════════════════
+   حصاد الميكروجرين
+══════════════════════════════════════════════ */
+async function loadMicroBatches(){
+  const box=document.getElementById('micro-batch-list');
+  box.innerHTML='<div class="empty-msg">جارٍ التحميل...</div>';
+  if(!hasInvScript()){box.innerHTML='<div class="empty-msg">لازم تربط رابط شيت المخزون الأول</div>';return;}
+  const r=await invApi('getBatches');
+  if(r&&r.ok&&r.data){
+    allInvBatches=r.data.slice(1).filter(row=>row[0]&&parseFloat(row[3])>0).map(row=>({code:row[0],product:row[1],origQty:parseFloat(row[2])||0,remaining:parseFloat(row[3])||0,date:row[4],source:row[5]}));
+    if(!allInvBatches.length){box.innerHTML='<div class="empty-msg">مفيش دفعات متاحة حاليًا</div>';return;}
+    box.innerHTML=allInvBatches.map(b=>`<div class="batch-item" onclick="selectMicroBatch('${b.code}')">
+      <span class="batch-item-code">${b.code}</span>
+      <span class="batch-item-meta">${b.product} · ${b.date}</span>
+      <span class="batch-item-qty">${fmt(b.remaining)} متاح</span>
+    </div>`).join('');
+  }else{box.innerHTML='<div class="empty-msg">تعذر التحميل</div>';}
+}
+function selectMicroBatch(code){
+  selectedMicroBatch=allInvBatches.find(b=>b.code===code);
+  if(!selectedMicroBatch)return;
+  document.getElementById('micro-step1').style.display='none';
+  document.getElementById('micro-step2').style.display='block';
+  document.getElementById('micro-batch-info').innerHTML=`الدفعة <strong>${selectedMicroBatch.code}</strong> — ${selectedMicroBatch.product} — المتاح: <strong>${fmt(selectedMicroBatch.remaining)}</strong> صينية`;
+}
+function checkMicroWarn(){
+  const eb=document.getElementById('micro-ebox');eb.className='err-box';
+  const v=parseFloat(document.getElementById('micro-trays').value)||0;
+  if(selectedMicroBatch&&v>selectedMicroBatch.remaining){eb.className='err-box show';document.getElementById('micro-ebox-txt').textContent=`أكبر من المتاح (${selectedMicroBatch.remaining})`;}
+}
+function resetMicroFlow(){
+  selectedMicroBatch=null;
+  document.getElementById('micro-step1').style.display='block';
+  document.getElementById('micro-step2').style.display='none';
+  loadMicroBatches();
+}
+async function submitMicroHarvest(){
+  const trays=parseFloat(document.getElementById('micro-trays').value);
+  const weight=parseFloat(document.getElementById('micro-weight').value)||0;
+  const resp=document.getElementById('micro-resp').value.trim()||currentUser?.username||'';
+  const date=document.getElementById('micro-date').value||todayStr();
+  if(!selectedMicroBatch){showToast('اختر الدفعة أولاً','err');return}
+  if(!trays||trays<=0){showToast('أدخل عدد الصواني','err');return}
+  if(trays>selectedMicroBatch.remaining){showToast('العدد أكبر من المتاح في الدفعة','err');return}
+  setSyncing('جارٍ الحفظ...');
+  const r1=await invApi('withdrawBatch',{batchCode:selectedMicroBatch.code,product:selectedMicroBatch.product,qty:trays,unit:'صينية',dest:GREENHOUSE_NAME,note:`حصاد ميكروجرين — وزن ${weight} جم`,user:resp,date});
+  if(r1&&r1.ok){
+    const r2=await sharedPost('addMicroHarvest',{batch:selectedMicroBatch.code,trays,weight,user:resp,date});
+    await loadAll();
+    document.getElementById('micro-trays').value='';document.getElementById('micro-weight').value='';
+    showToast(`تم تسجيل حصاد ${fmt(trays)} صينية — ${fmt(weight)} جم`);
+    resetMicroFlow();
+  }else{showToast((r1&&r1.error)?'فشل: '+r1.error:'فشل الاتصال','err');}
+  setSynced();
+}
+
+/* ══════════════════════════════════════════════
+   السجل
+══════════════════════════════════════════════ */
+function renderLog(){
+  const filter=document.getElementById('log-filter').value;
+  const box=document.getElementById('log-list');
+  let list=[...movements];
+  const microList=microHarvests.map(m=>({type:'ميكروجرين',table:'',toTable:'',crop:'',qty:m.trays,weight:m.weight,method:'',quality:'',batch:m.batch,user:m.user,date:m.date}));
+  list=[...list,...microList].sort((a,b)=>(a.date<b.date?1:-1));
+  if(filter)list=list.filter(m=>m.type.includes(filter));
+  if(!list.length){box.innerHTML='<div class="empty-msg">مفيش عمليات مسجلة لسه</div>';return}
+  const typeCls={زراعة:'z',نقل:'n',حصاد:'h',ميكروجرين:'m',تحديث_متبقي:'h'};
+  const typeLbl={زراعة:'زراعة',نقل:'نقل',حصاد:'حصاد',ميكروجرين:'ميكروجرين',تحديث_متبقي:'تحديث متبقي'};
+  box.innerHTML=list.slice(0,80).map(m=>{
+    let main='';
+    if(m.type==='زراعة')main=`ترابيزة <strong>${m.table}</strong> · ${m.crop} · ${fmt(m.qty)}`;
+    else if(m.type==='نقل')main=`<strong>${m.table}</strong> → <strong>${m.toTable}</strong> · ${m.crop} · ${fmt(m.qty)}`;
+    else if(m.type==='حصاد')main=`ترابيزة <strong>${m.table}</strong> · ${m.crop} · حصاد ${fmt(m.qty)}${m.weight?' · '+fmt(m.weight)+' جم':''}`;
+    else if(m.type==='تحديث_متبقي')main=`ترابيزة <strong>${m.table}</strong> · ${m.crop} · المتبقي بقى ${fmt(m.qty)}`;
+    else if(m.type==='ميكروجرين')main=`دفعة <strong>${m.batch}</strong> · ${fmt(m.qty)} صينية · ${fmt(m.weight)} جم`;
+    return `<div class="log-item ${typeCls[m.type]||''}">
+      <div style="flex:1">
+        <div class="log-main">${main}</div>
+        <div class="log-meta">${m.date}${m.method?' · '+m.method:''}${m.quality?' · '+m.quality:''}${m.user?' · '+m.user:''}</div>
+      </div>
+      <span class="badge b${typeCls[m.type]||''}">${typeLbl[m.type]||m.type}</span>
+    </div>`;
+  }).join('');
+}
+
+/* ══════════════════════════════════════════════
+   تصدير + طباعة
+══════════════════════════════════════════════ */
+function csvCell(v){return '"'+String(v??'').replace(/"/g,'""')+'"';}
+function exportCSV(){
+  if(!movements.length&&!microHarvests.length){showToast('مفيش بيانات','err');return}
+  const hdr=['النوع','الترابيزة','إلى ترابيزة','الصنف','العدد','الوزن (جم)','الطريقة','الجودة','الدفعة','بواسطة','التاريخ'];
+  const rows=movements.map(m=>[m.type,m.table,m.toTable,m.crop,m.qty,m.weight,m.method,m.quality,m.batch,m.user,m.date]);
+  microHarvests.forEach(m=>rows.push(['ميكروجرين','','','',m.trays,m.weight,'','',m.batch,m.user,m.date]));
+  const csv='\uFEFF'+[hdr,...rows].map(r=>r.map(csvCell).join(',')).join('\n');
+  const a=document.createElement('a');
+  a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);
+  a.download='1سبان_ورقيات_15_'+todayStr()+'.csv';
+  a.click();showToast('تم تنزيل الملف');
+}
+function downloadGhPDF(){
+  const now=new Date();
+  const html=document.getElementById('gh-map').innerHTML;
+  const win=window.open('','_blank');
+  win.document.write(`<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8"><title>خريطة الصوبة — 1سبان ورقيات 15</title>
+  <style>body{font-family:Arial,sans-serif;padding:20px;direction:rtl}h1{font-size:16px}table{border-collapse:separate;border-spacing:4px}td{border:1.5px solid #ccc;border-radius:6px;padding:6px;text-align:center;font-size:11px}
+  @media print{@page{size:A4 landscape;margin:10mm}}</style></head><body>
+  <h1>🌿 خريطة الصوبة — 1سبان ورقيات 15 — ${ymd(now)}</h1>${html}
+  <script>window.onload=function(){window.print();}<\/script></body></html>`);
+  win.document.close();
+}
+
+/* ══════════════════════════════════════════════
+   INIT
+══════════════════════════════════════════════ */
+checkSession();
+</script>
+</body>
+</html>
