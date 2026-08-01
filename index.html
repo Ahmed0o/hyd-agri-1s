@@ -449,7 +449,7 @@ input::placeholder{color:var(--tx3)}
    بعد ما تعمل Deploy لكل Apps Script
 ══════════════════════════════════════════════ */
 const SHARED_SCRIPT_URL='https://script.google.com/macros/s/AKfycbz5NKp8OgztGXRQCmv8dE16KxGfxrTh5pgZlZs_2NERVNYvnwDiIQUazQK_Vh8TEOeR3g/exec';
-const INV_SCRIPT_URL='https://script.google.com/macros/s/AKfycbzB6KP-8mXTQmuhDjQvDRN50ajlnJT5GlmHJN_tjfA4Kli5qxb8quXTVcH--ztj0Ef37g/exec';         // رابط Apps Script الخاص بشيت المخزون
+const INV_SCRIPT_URL='%%INV_SCRIPT_URL%%';         // رابط Apps Script الخاص بشيت المخزون
 const GREENHOUSE_NAME='1سبان ورقيات 15';           // نفس الاسم اللي هيظهر في عمود "الصوبة" وكوجهة/مصدر في المخزون
 
 const ROWS=['A','B','C','D','E'];
@@ -702,10 +702,12 @@ async function loadAvailableBatches(){
   const box=document.getElementById('zera-batch-list');
   box.innerHTML='<div class="empty-msg">جارٍ تحميل الدفعات...</div>';
   if(!hasInvScript()){box.innerHTML='<div class="empty-msg">لازم تربط رابط شيت المخزون (INV_SCRIPT_URL) الأول</div>';return;}
-  const r=await invApi('getAvailableBatches');
+  const r=await invApi('getBatches');
   if(r&&r.ok&&r.data){
-    availableBatches=r.data;
-    if(!availableBatches.length){box.innerHTML='<div class="empty-msg">مفيش دفعات متاحة للزراعة حاليًا</div>';return;}
+    availableBatches=r.data.slice(1)
+      .filter(row=>row[0]&&parseFloat(row[3])>0&&String(row[1]||'').includes('شتل'))
+      .map(row=>({code:row[0],product:row[1],remaining:parseFloat(row[3])||0,date:row[4],source:row[5]}));
+    if(!availableBatches.length){box.innerHTML='<div class="empty-msg">مفيش دفعات شتلات متاحة حاليًا (لازم اسم المنتج يحتوي على "شتل")</div>';return;}
     box.innerHTML=availableBatches.map(b=>`<div class="batch-item" onclick="selectZeraBatch('${b.code}')">
       <span class="batch-item-code">${b.code}</span>
       <span class="batch-item-meta">${b.product} · أُنتج ${b.date}${b.source?' · '+b.source:''}</span>
@@ -1002,8 +1004,10 @@ async function loadMicroBatches(){
   if(!hasInvScript()){box.innerHTML='<div class="empty-msg">لازم تربط رابط شيت المخزون الأول</div>';return;}
   const r=await invApi('getBatches');
   if(r&&r.ok&&r.data){
-    allInvBatches=r.data.slice(1).filter(row=>row[0]&&parseFloat(row[3])>0).map(row=>({code:row[0],product:row[1],origQty:parseFloat(row[2])||0,remaining:parseFloat(row[3])||0,date:row[4],source:row[5]}));
-    if(!allInvBatches.length){box.innerHTML='<div class="empty-msg">مفيش دفعات متاحة حاليًا</div>';return;}
+    allInvBatches=r.data.slice(1)
+      .filter(row=>row[0]&&parseFloat(row[3])>0&&String(row[1]||'').includes('ميكروجرين'))
+      .map(row=>({code:row[0],product:row[1],origQty:parseFloat(row[2])||0,remaining:parseFloat(row[3])||0,date:row[4],source:row[5]}));
+    if(!allInvBatches.length){box.innerHTML='<div class="empty-msg">مفيش دفعات ميكروجرين متاحة حاليًا (لازم اسم المنتج يحتوي على "ميكروجرين")</div>';return;}
     box.innerHTML=allInvBatches.map(b=>`<div class="batch-item" onclick="selectMicroBatch('${b.code}')">
       <span class="batch-item-code">${b.code}</span>
       <span class="batch-item-meta">${b.product} · ${b.date}</span>
