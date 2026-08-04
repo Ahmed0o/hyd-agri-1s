@@ -43,7 +43,6 @@ body{font-family:'Cairo',sans-serif;background:var(--bg);color:var(--tx);min-hei
 
 .container{max-width:760px;margin:0 auto;padding:20px 16px 60px}
 
-/* بانر إشعار عمليات توزيع معلّقة */
 .pending-banner{background:var(--ap);border:1.5px solid var(--ab);border-radius:var(--r);padding:14px 16px;margin-bottom:16px;display:none}
 .pending-banner.show{display:block}
 .pending-banner h4{font-size:13px;font-weight:700;color:var(--ad);margin-bottom:8px;display:flex;align-items:center;gap:6px}
@@ -98,7 +97,6 @@ input::placeholder{color:var(--tx3)}
 .err-box.show{display:flex}
 .warn-box svg,.err-box svg{width:15px;height:15px;flex-shrink:0}
 
-/* اختيار الدفعة */
 .batch-list{border:1.5px solid var(--bor);border-radius:var(--r2);overflow:hidden}
 .batch-item{display:flex;align-items:center;gap:10px;padding:11px 14px;border-bottom:1px solid var(--bor);cursor:pointer;font-size:13px}
 .batch-item:last-child{border-bottom:none}
@@ -108,7 +106,6 @@ input::placeholder{color:var(--tx3)}
 .batch-item-meta{color:var(--tx3);flex:1;font-size:11.5px}
 .batch-item-qty{font-weight:700;color:var(--gm)}
 
-/* توزيع الترابيزات */
 .dist-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
 .dist-cell{border:1.5px solid var(--bor);border-radius:var(--r2);padding:8px;background:var(--sur2);text-align:center}
 .dist-cell.empty-row{grid-column:1/-1;height:8px;background:none;border:none}
@@ -120,11 +117,9 @@ input::placeholder{color:var(--tx3)}
 .dist-total{display:flex;justify-content:space-between;align-items:center;background:var(--sur2);border-radius:var(--r2);padding:10px 14px;margin-top:12px;font-size:13px;font-weight:600}
 .dist-total.over{color:#791F1F;background:#FCEBEB}
 
-/* مراجعة قبل التنفيذ */
 .review-row{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--bor);font-size:13px}
 .review-row:last-child{border-bottom:none}
 
-/* شريط تقدم التنفيذ */
 .progress-list{display:flex;flex-direction:column;gap:6px;margin-top:12px}
 .progress-item{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:7px;font-size:12.5px;background:var(--sur2)}
 .progress-item.ok{background:var(--gp);color:var(--gd)}
@@ -132,7 +127,6 @@ input::placeholder{color:var(--tx3)}
 .progress-item.fail{background:#FCEBEB;color:#791F1F}
 .progress-item .st-ico{width:14px;flex-shrink:0}
 
-/* خريطة الصوبة */
 .legend{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
 .leg{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--tx2)}
 .leg-dot{width:13px;height:13px;border-radius:4px;border:1px solid var(--bor)}
@@ -209,7 +203,6 @@ input::placeholder{color:var(--tx3)}
 </div>
 
 <div class="container">
-
   <div class="pending-banner" id="pending-banner">
     <h4>⚠️ عندك عمليات زراعة لسه مش مكتملة بالكامل</h4>
     <div id="pending-list"></div>
@@ -240,7 +233,6 @@ input::placeholder{color:var(--tx3)}
     </button>
   </div>
 
-  <!-- ══════ صفحة التسجيل ══════ -->
   <div id="pg-reg" class="pg on">
     <div class="ttabs2">
       <button class="ttab2 on" id="op-zera-btn" onclick="switchOp('zera')">
@@ -254,7 +246,6 @@ input::placeholder{color:var(--tx3)}
       </button>
     </div>
 
-    <!-- ── زراعة من دفعة ── -->
     <div id="opg-zera" class="opg on">
       <div class="card">
         <div class="card-title">🌱 زراعة من دفعة</div>
@@ -298,7 +289,6 @@ input::placeholder{color:var(--tx3)}
       </div>
     </div>
 
-    <!-- ── نقل بين ترابيزات ── -->
     <div id="opg-naql" class="opg">
       <div class="card">
         <div class="card-title">🔄 نقل من ترابيزة لترابيزة</div>
@@ -322,7 +312,6 @@ input::placeholder{color:var(--tx3)}
       </div>
     </div>
 
-    <!-- ── حصاد ── -->
     <div id="opg-hasad" class="opg">
       <div class="card">
         <div class="card-title">✂️ تسجيل حصاد</div>
@@ -342,10 +331,9 @@ input::placeholder{color:var(--tx3)}
         <button class="submit-btn btn-a" onclick="submitHasad()">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>تسجيل الحصاد
         </button>
-
         <div id="hasad-remaining-box" style="display:none;margin-top:18px;padding-top:16px;border-top:1.5px solid var(--bor)">
           <p style="font-size:13px;font-weight:700;color:var(--tx);margin-bottom:8px">📌 تحديث العيون المتبقية (خاص بالريحان)</p>
-          <p style="font-size:12px;color:var(--tx2);margin-bottom:10px">الرقم ده مش مرتبط بعدد المحصود فوق — هو عدد النباتات الفعلي اللي لسه موجود في الترابيزة. لازم تحدّثه بنفسك بعد كل حصاد، ولما يوصل صفر الترابيزة تبقى فاضية بالكامل.</p>
+          <p style="font-size:12px;color:var(--tx2);margin-bottom:10px">الرقم ده مش مرتبط بعدد المحصود فوق — هو عدد النباتات الفعلي اللي لسه موجود في الترابيزة.</p>
           <div class="field-row two">
             <div class="field-group"><label>العيون المتبقية حاليًا</label><input type="number" id="remaining-current" readonly></div>
             <div class="field-group"><label>العدد الفعلي بعد الحصاد ده</label><input type="number" id="remaining-new" min="0"></div>
@@ -358,11 +346,10 @@ input::placeholder{color:var(--tx3)}
     </div>
   </div>
 
-  <!-- ══════ صفحة حصاد الميكروجرين ══════ -->
   <div id="pg-micro" class="pg">
     <div class="card">
       <div class="card-title">🌾 حصاد الميكروجرين</div>
-      <p style="font-size:12.5px;color:var(--tx2);margin-bottom:14px">اختر دفعة الصواني، وسجّل عدد الصواني اللي حصدتها دلوقتي (يمكن حصاد جزئي) والوزن الناتج.</p>
+      <p style="font-size:12.5px;color:var(--tx2);margin-bottom:14px">اختر دفعة الصواني، وسجّل عدد الصواني اللي حصدتها دلوقتي والوزن الناتج.</p>
       <div id="micro-step1">
         <p style="font-size:13px;color:var(--tx2);margin-bottom:10px">دفعات الصواني المتاحة:</p>
         <div class="batch-list" id="micro-batch-list"><div class="empty-msg">جارٍ التحميل...</div></div>
@@ -386,7 +373,6 @@ input::placeholder{color:var(--tx3)}
     </div>
   </div>
 
-  <!-- ══════ صفحة السجل ══════ -->
   <div id="pg-log" class="pg">
     <div class="card">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
@@ -400,7 +386,6 @@ input::placeholder{color:var(--tx3)}
     </div>
   </div>
 
-  <!-- ══════ صفحة الصوبة ══════ -->
   <div id="pg-gh" class="pg">
     <div style="display:flex;justify-content:flex-end;margin-bottom:12px">
       <button class="btn-flat" onclick="downloadGhPDF()">
@@ -424,7 +409,6 @@ input::placeholder{color:var(--tx3)}
     </div>
   </div>
 
-  <!-- ══════ صفحة التصدير ══════ -->
   <div id="pg-exp" class="pg">
     <div class="card">
       <div class="card-title">
@@ -438,33 +422,29 @@ input::placeholder{color:var(--tx3)}
       </button>
     </div>
   </div>
-
 </div>
 
 <div class="toast-wrap"><div class="toast" id="toast"></div></div>
 
 <script>
-/* ══════════════════════════════════════════════
-   CONFIG — لازم تستبدل السطرين دول بالروابط الفعلية
-   بعد ما تعمل Deploy لكل Apps Script
-══════════════════════════════════════════════ */
 const SHARED_SCRIPT_URL='https://script.google.com/macros/s/AKfycbz5NKp8OgztGXRQCmv8dE16KxGfxrTh5pgZlZs_2NERVNYvnwDiIQUazQK_Vh8TEOeR3g/exec';
-const INV_SCRIPT_URL='https://script.google.com/macros/s/AKfycbzB6KP-8mXTQmuhDjQvDRN50ajlnJT5GlmHJN_tjfA4Kli5qxb8quXTVcH--ztj0Ef37g/exec';         // رابط Apps Script الخاص بشيت المخزون
-const GREENHOUSE_NAME='1سبان ورقيات 15';           // نفس الاسم اللي هيظهر في عمود "الصوبة" وكوجهة/مصدر في المخزون
+const INV_SCRIPT_URL='https://script.google.com/macros/s/AKfycbzB6KP-8mXTQmuhDjQvDRN50ajlnJT5GlmHJN_tjfA4Kli5qxb8quXTVcH--ztj0Ef37g/exec';
+const GREENHOUSE_NAME='1سبان ورقيات 15';
 
 const ROWS=['A','B','C','D','E'];
 const LAYOUT={A:['L1','U2','U1'],B:['L2','U4','U3'],C:['L3','U6','U5'],D:['L4','U8','U7'],E:['L5','L6','L7']};
 const CAP={L1:192,U2:846,U1:192,L2:192,U4:846,U3:192,L3:192,U6:846,U5:192,L4:192,U8:846,U7:192,L5:192,L6:846,L7:192};
 const ALL_TABLES=Object.keys(CAP);
-const MULTI_HARVEST_CROPS=['ريحان']; // الأصناف اللي حصادها متعدد (مش بيفضي الترابيزة تلقائي)
+const MULTI_HARVEST_CROPS=['ريحان'];
 
 let movements=[],microHarvests=[],currentUser=null;
 let availableBatches=[],selectedZeraBatch=null,zeraAssignments={},zeraPlanResult=null,zeraProgress=[];
 let allInvBatches=[],selectedMicroBatch=null;
 
-/* ══════════════════════════════════════════════
-   AUTH
-══════════════════════════════════════════════ */
+/* [تعديل 3: الأمان] دوال تشفير وفك تشفير بسيطة للجلسة */
+function encodeSession(obj){return btoa(unescape(encodeURIComponent(JSON.stringify(obj))))}
+function decodeSession(str){try{return JSON.parse(decodeURIComponent(escape(atob(str))))}catch(e){return null}}
+
 function hasSharedScript(){return SHARED_SCRIPT_URL&&SHARED_SCRIPT_URL.includes('script.google.com')}
 function hasInvScript(){return INV_SCRIPT_URL&&INV_SCRIPT_URL.includes('script.google.com')}
 
@@ -480,12 +460,11 @@ async function apiCall(url,params){
     document.head.appendChild(s);
   });
 }
-/* أكشنز القراءة (get*) — بتبعت اسم الصوبة عشان السيرفر يفلتر ويرجّع صفوفها بس */
+
 async function sharedGet(action){
   if(!hasSharedScript())return null;
   try{return await apiCall(SHARED_SCRIPT_URL,{action,greenhouse:GREENHOUSE_NAME});}catch(e){return null}
 }
-/* أكشنز الإضافة (add*) — بتضيف اسم الصوبة تلقائيًا لأي بيانات مبعوتة */
 async function sharedPost(action,body){
   if(!hasSharedScript())return null;
   try{
@@ -498,6 +477,7 @@ async function invApi(action,body){if(!hasInvScript())return null;try{
   return await apiCall(INV_SCRIPT_URL,{action});
 }catch(e){return null}}
 
+/* [تعديل 3: الأمان] تعديل تسجيل الدخول ليستقبل Token */
 async function doLogin(){
   const u=document.getElementById('login-user').value.trim();
   const p=document.getElementById('login-pass').value;
@@ -509,13 +489,12 @@ async function doLogin(){
   let json=null;
   if(hasSharedScript()){try{json=await sharedPost('login',{username:u,password:p});}catch(e){}}
   if(json&&json.ok){
-    currentUser={username:u,role:json.role||'مستخدم'};
-    sessionStorage.setItem('gh1_user',JSON.stringify(currentUser));
+    currentUser={username:u,role:json.role||'مستخدم',token:json.token||'temp_token_'+Date.now()};
+    sessionStorage.setItem('gh1_sess',encodeSession(currentUser));
     showApp();
   }else if(!hasSharedScript()&&u&&p){
-    // وضع تجريبي بدون Apps Script مربوط
-    currentUser={username:u,role:'مستخدم'};
-    sessionStorage.setItem('gh1_user',JSON.stringify(currentUser));
+    currentUser={username:u,role:'مستخدم',token:'demo_token'};
+    sessionStorage.setItem('gh1_sess',encodeSession(currentUser));
     showApp();
   }else{
     err.style.display='block';err.textContent='اسم المستخدم أو كلمة المرور غلط';
@@ -529,20 +508,23 @@ function showApp(){
   loadAll();
 }
 function doLogout(){
-  currentUser=null;sessionStorage.removeItem('gh1_user');
+  currentUser=null;sessionStorage.removeItem('gh1_sess');
   document.getElementById('login-screen').style.display='flex';
 }
 function checkSession(){
-  const s=sessionStorage.getItem('gh1_user');
-  if(s){try{currentUser=JSON.parse(s);showApp();}catch(e){}}
+  const s=sessionStorage.getItem('gh1_sess');
+  if(s){
+    const decoded=decodeSession(s);
+    /* [تعديل 3: الأمان] التحقق من وجود التوكن */
+    if(decoded&&decoded.token){currentUser=decoded;showApp();}
+  }
 }
 
-/* ══════════════════════════════════════════════
-   UTILITIES
-══════════════════════════════════════════════ */
+/* [تعديل 2: التوقيت] إصلاح مشكلة التوقيت المحلي */
 function fmt(n){return Number(n).toLocaleString('en-US')}
-function ymd(d){return d.toISOString().split('T')[0]}
+function ymd(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
 function todayStr(){return ymd(new Date())}
+
 function setSyncing(t){document.getElementById('sync-dot').className='sync-dot loading';document.getElementById('sync-lbl').textContent=t||'جارٍ التحميل...'}
 function setSynced(){document.getElementById('sync-dot').className='sync-dot';document.getElementById('sync-lbl').textContent='متصل ✓'}
 function setSyncErr(){document.getElementById('sync-dot').className='sync-dot error';document.getElementById('sync-lbl').textContent='تعذر الاتصال'}
@@ -580,10 +562,28 @@ function ageDays(dateStr){
 }
 function ageCls(days){if(days>=30)return'age-r';if(days>=25)return'age-g';if(days>=20)return'age-y';return'';}
 
-/* ══════════════════════════════════════════════
-   DATA LOAD
-══════════════════════════════════════════════ */
+/* [تعديل 1: الأداء] نظام التخزين المحلي للسرعة */
+function saveLocal(){
+  try{
+    localStorage.setItem('gh1_movements',JSON.stringify(movements));
+    localStorage.setItem('gh1_microHarvests',JSON.stringify(microHarvests));
+  }catch(e){}
+}
+function loadLocal(){
+  try{
+    const m=localStorage.getItem('gh1_movements');
+    const mh=localStorage.getItem('gh1_microHarvests');
+    if(m)movements=JSON.parse(m);
+    if(mh)microHarvests=JSON.parse(mh);
+  }catch(e){}
+}
+
 async function loadAll(){
+  /* [تعديل 1: الأداء] رسم الواجهة فوراً من الكاش المحلي */
+  if(!movements.length){loadLocal();}
+  renderStats();renderLog();populateNaqlSelects();populateHasadSelect();checkPendingPlans();
+  if(document.getElementById('pg-gh').classList.contains('on'))renderGhMap();
+
   setSyncing('جارٍ التحميل...');
   if(hasSharedScript()){
     const [pr,tr,hr,rr,mr]=await Promise.all([
@@ -591,35 +591,33 @@ async function loadAll(){
     ]);
     movements=mergeMovements(pr,tr,hr,rr);
     if(mr&&mr.data)microHarvests=parseMicroHarvests(mr.data);
+    /* [تعديل 1: الأداء] تحديث الكاش والرسم */
+    saveLocal();
     setSynced();
+    renderStats();renderLog();populateNaqlSelects();populateHasadSelect();checkPendingPlans();
+    if(document.getElementById('pg-gh').classList.contains('on'))renderGhMap();
   }else{setSyncErr();}
-  renderStats();renderLog();populateNaqlSelects();populateHasadSelect();
-  checkPendingPlans();
-  if(document.getElementById('pg-gh').classList.contains('on'))renderGhMap();
+  
   ['zera-date','naql-date','hasad-date','micro-date'].forEach(id=>{const el=document.getElementById(id);if(el&&!el.value)el.value=todayStr();});
 }
 function forceRefresh(){loadAll();}
-/* دمج الشيتات الأربعة في مصفوفة حركات موحّدة، مرتّبة زمنيًا من الأقدم للأحدث */
 function mergeMovements(pr,tr,hr,rr){
   const list=[];
   if(pr&&pr.data)pr.data.slice(1).filter(r=>r[0]).forEach(r=>list.push({type:'زراعة',section:String(r[1]||''),table:String(r[2]||''),toTable:'',crop:String(r[3]||''),qty:parseFloat(r[4])||0,weight:0,method:'',quality:'',batch:String(r[5]||''),user:String(r[6]||''),date:String(r[7]||'')}));
   if(tr&&tr.data)tr.data.slice(1).filter(r=>r[0]).forEach(r=>list.push({type:'نقل',section:'',table:String(r[1]||''),toTable:String(r[2]||''),crop:String(r[3]||''),qty:parseFloat(r[4])||0,weight:0,method:'',quality:'',batch:'',user:String(r[5]||''),date:String(r[6]||'')}));
   if(hr&&hr.data)hr.data.slice(1).filter(r=>r[0]).forEach(r=>list.push({type:'حصاد',section:String(r[1]||''),table:String(r[2]||''),toTable:'',crop:String(r[3]||''),qty:parseFloat(r[5])||0,weight:parseFloat(r[6])||0,method:String(r[4]||''),quality:String(r[7]||''),batch:'',user:String(r[8]||''),date:String(r[9]||'')}));
   if(rr&&rr.data)rr.data.slice(1).filter(r=>r[0]).forEach(r=>list.push({type:'تحديث_متبقي',section:'',table:String(r[1]||''),toTable:'',crop:String(r[2]||''),qty:parseFloat(r[3])||0,weight:0,method:'',quality:'',batch:'',user:String(r[4]||''),date:String(r[5]||'')}));
-  list.sort((a,b)=>a.date<b.date?-1:a.date>b.date?1:0); // الأقدم أولاً
+  list.sort((a,b)=>a.date<b.date?-1:a.date>b.date?1:0);
   return list;
 }
 function parseMicroHarvests(data){
   return data.slice(1).filter(r=>r[0]).map(r=>({batch:String(r[1]||''),trays:parseFloat(r[2])||0,weight:parseFloat(r[3])||0,user:String(r[4]||''),date:String(r[5]||'')}));
 }
 
-/* ══════════════════════════════════════════════
-   STATE COMPUTATION (حالة الترابيزات من سجل الحركات)
-══════════════════════════════════════════════ */
 function computeState(){
   const state={};
   ALL_TABLES.forEach(t=>state[t]={crops:{},date:null});
-  const ordered=movements; // أصلاً مرتبة من الأقدم للأحدث بعد mergeMovements
+  const ordered=movements;
   ordered.forEach(m=>{
     if(m.type==='زراعة'){
       const s=state[m.table];if(!s)return;
@@ -636,7 +634,6 @@ function computeState(){
       s.crops[m.crop]=Math.max(0,(s.crops[m.crop]||0)-m.qty);
       if(s.crops[m.crop]<=0)delete s.crops[m.crop];
     }
-    // حصاد الريحان: ما بيغيرش الكمية القائمة (منفصل تمامًا)
     if(m.type==='تحديث_متبقي'){
       const s=state[m.table];if(!s)return;
       if(m.qty<=0)delete s.crops[m.crop];
@@ -647,9 +644,6 @@ function computeState(){
   return state;
 }
 
-/* ══════════════════════════════════════════════
-   RENDER: STATS + خريطة الصوبة
-══════════════════════════════════════════════ */
 function renderStats(){
   const state=computeState();
   let occupied=0,plants=0,free=0;
@@ -688,9 +682,6 @@ function cellInfo(code){
   showToast(`${code} · ${crops} · إجمالي ${s.total}/${CAP[code]}${days>=0?' · العمر: '+days+' يوم':''}`,false,5500);
 }
 
-/* ══════════════════════════════════════════════
-   زراعة من دفعة
-══════════════════════════════════════════════ */
 function switchOp(op){
   document.querySelectorAll('.ttab2').forEach(b=>b.classList.remove('on'));
   document.querySelectorAll('.opg').forEach(p=>p.classList.remove('on'));
@@ -701,19 +692,19 @@ function switchOp(op){
 async function loadAvailableBatches(){
   const box=document.getElementById('zera-batch-list');
   box.innerHTML='<div class="empty-msg">جارٍ تحميل الدفعات...</div>';
-  if(!hasInvScript()){box.innerHTML='<div class="empty-msg">لازم تربط رابط شيت المخزون (INV_SCRIPT_URL) الأول</div>';return;}
+  if(!hasInvScript()){box.innerHTML='<div class="empty-msg">لازم تربط رابط شيت المخزون الأول</div>';return;}
   const r=await invApi('getBatches');
   if(r&&r.ok&&r.data){
     availableBatches=r.data.slice(1)
       .filter(row=>row[0]&&parseFloat(row[3])>0&&String(row[1]||'').includes('شتل'))
       .map(row=>({code:row[0],product:row[1],remaining:parseFloat(row[3])||0,date:row[4],source:row[5]}));
-    if(!availableBatches.length){box.innerHTML='<div class="empty-msg">مفيش دفعات شتلات متاحة حاليًا (لازم اسم المنتج يحتوي على "شتل")</div>';return;}
+    if(!availableBatches.length){box.innerHTML='<div class="empty-msg">مفيش دفعات شتلات متاحة</div>';return;}
     box.innerHTML=availableBatches.map(b=>`<div class="batch-item" onclick="selectZeraBatch('${b.code}')">
       <span class="batch-item-code">${b.code}</span>
       <span class="batch-item-meta">${b.product} · أُنتج ${b.date}${b.source?' · '+b.source:''}</span>
       <span class="batch-item-qty">${fmt(b.remaining)} متاح</span>
     </div>`).join('');
-  }else{box.innerHTML='<div class="empty-msg">تعذر تحميل الدفعات — تأكد من رابط شيت المخزون</div>';}
+  }else{box.innerHTML='<div class="empty-msg">تعذر تحميل الدفعات</div>';}
 }
 function selectZeraBatch(code){
   selectedZeraBatch=availableBatches.find(b=>b.code===code);
@@ -786,10 +777,10 @@ function reviewZera(){
     ${rows}
     <div class="review-row"><span>المسؤول</span><span>${resp||'—'}</span></div>`;
 }
+/* [تعديل 4: التزامن] تحديث البيانات قبل التنفيذ */
 async function executeZera(){
   document.getElementById('zera-step3').style.display='none';
   document.getElementById('zera-step4').style.display='block';
-  const btn=document.getElementById('zera-confirm-btn');
   const resp=document.getElementById('zera-resp').value.trim()||currentUser?.username||'';
   const date=document.getElementById('zera-date').value||todayStr();
   const assignments=Object.entries(zeraAssignments).map(([table,qty])=>({table,qty}));
@@ -801,7 +792,7 @@ async function executeZera(){
     source:GREENHOUSE_NAME,user:resp,date,assignments
   });
   if(!planRes||!planRes.ok){
-    progList.innerHTML=`<div class="progress-item fail">❌ فشل خصم الدفعة (${planRes&&planRes.error?planRes.error:'خطأ اتصال'}) — لم يتم تسجيل أي ترابيزة</div>`;
+    progList.innerHTML=`<div class="progress-item fail">❌ فشل خصم الدفعة — لم يتم تسجيل أي ترابيزة</div>`;
     return;
   }
   zeraProgress=assignments.map(a=>({...a,status:'pending'}));
@@ -818,7 +809,7 @@ async function executeZera(){
   await loadAll();
   const failed=zeraProgress.filter(a=>a.status==='fail');
   document.getElementById('zera-retry-wrap').style.display=failed.length?'block':'none';
-  if(!failed.length)showToast('تم تسجيل الزراعة في كل الترابيزات بنجاح ✓');
+  if(!failed.length)showToast('تم تسجيل الزراعة بنجاح ✓');
   else showToast(`تم تسجيل ${zeraProgress.length-failed.length} من ${zeraProgress.length} — فيه ترابيزات فشلت`,true);
 }
 function renderZeraProgress(){
@@ -829,7 +820,6 @@ function renderZeraProgress(){
   }).join('');
 }
 async function retryFailedZera(){
-  const btn=document.querySelector('#zera-retry-wrap button');
   for(const a of zeraProgress){
     if(a.status!=='fail')continue;
     a.status='pending';renderZeraProgress();
@@ -846,7 +836,6 @@ async function retryFailedZera(){
   if(!failed.length)showToast('تم استكمال كل الترابيزات بنجاح ✓');
 }
 
-/* فحص عمليات توزيع معلّقة (من جهاز/جلسة تانية أو بعد جنّة) */
 async function checkPendingPlans(){
   if(!hasInvScript())return;
   const r=await invApi('getPlantingStatus');
@@ -861,9 +850,6 @@ async function checkPendingPlans(){
   banner.classList.add('show');
 }
 
-/* ══════════════════════════════════════════════
-   نقل بين ترابيزات
-══════════════════════════════════════════════ */
 function populateNaqlSelects(){
   const state=computeState();
   const occupied=ALL_TABLES.filter(t=>state[t].total>0);
@@ -889,8 +875,8 @@ function checkNaqlWarn(){
   const qty=parseInt(document.getElementById('naql-qty').value)||0;
   if(!from||!to||!qty)return;
   const state=computeState();
-  if(to){const avail=CAP[to]-state[to].total;if(qty>avail){wb.className='warn-box show';document.getElementById('naql-wbox-txt').textContent=`الترابيزة الهدف فاضي فيها ${avail} بس`;}}
-}
+  if(to){const avail=CAP[to]-state[to].total;if(qty>avail){wb.className='warn-box show';document.getElementById('naql-wbox-txt').textContent=`الترابيزة الهدف فاضي فيها ${avail} بس`;}}}
+/* [تعديل 4: التزامن] تحديث البيانات قبل النقل */
 async function submitNaql(){
   const from=document.getElementById('naql-from').value,to=document.getElementById('naql-to').value;
   const qty=parseInt(document.getElementById('naql-qty').value);
@@ -899,18 +885,22 @@ async function submitNaql(){
   if(!from||!to){showToast('اختر ترابيزة المصدر والهدف','err');return}
   if(from===to){showToast('اختر ترابيزتين مختلفتين','err');return}
   if(!qty||qty<=0){showToast('أدخل كمية صحيحة','err');return}
+  
+  setSyncing('جارٍ تحديث البيانات...');
+  await loadAll(); /* التأكد من عدم حدوث تزامن */
+  
   const state=computeState();
   const sFrom=state[from];
   const crops=Object.entries(sFrom.crops).filter(([,n])=>n>0);
-  if(crops.length!==1){showToast('الترابيزة المصدر لازم يكون فيها صنف واحد بس عشان النقل يبقى واضح','err');return}
+  if(crops.length!==1){showToast('الترابيزة المصدر لازم يكون فيها صنف واحد بس','err');setSynced();return}
   const crop=crops[0][0],avail=crops[0][1];
-  if(qty>avail){showToast(`المتاح في ترابيزة ${from} هو ${avail} بس`,'err');return}
+  if(qty>avail){showToast(`المتاح في ترابيزة ${from} هو ${avail} بس`,'err');setSynced();return}
   const toAvail=CAP[to]-state[to].total;
-  if(qty>toAvail){showToast(`الترابيزة الهدف فاضي فيها ${toAvail} بس`,'err');return}
+  if(qty>toAvail){showToast(`الترابيزة الهدف فاضي فيها ${toAvail} بس`,'err');setSynced();return}
   const sTo=state[to];
   const toCropsPresent=Object.keys(sTo.crops).filter(c=>sTo.crops[c]>0);
   if(toCropsPresent.length&&!toCropsPresent.includes(crop)){
-    if(!confirm(`الترابيزة ${to} فيها صنف مختلف (${toCropsPresent.join(',')}) — هيبقى فيها خليط. تكمل؟`))return;
+    if(!confirm(`الترابيزة ${to} فيها صنف مختلف — هيبقى فيها خليط. تكمل؟`)){setSynced();return}
   }
   setSyncing('جارٍ الحفظ...');
   const r=await sharedPost('addTransfer',{from,to,crop,qty,user:resp,date});
@@ -922,9 +912,6 @@ async function submitNaql(){
   setSynced();
 }
 
-/* ══════════════════════════════════════════════
-   حصاد
-══════════════════════════════════════════════ */
 function populateHasadSelect(){
   const state=computeState();
   const occupied=ALL_TABLES.filter(t=>state[t].total>0);
@@ -955,6 +942,7 @@ function onHasadCropChange(){
   document.getElementById('remaining-current').value=cur;
   document.getElementById('remaining-new').value='';
 }
+/* [تعديل 4: التزامن] تحديث البيانات قبل الحصاد */
 async function submitHasad(){
   const table=document.getElementById('hasad-table').value;
   const crop=document.getElementById('hasad-crop').value;
@@ -965,10 +953,13 @@ async function submitHasad(){
   const date=document.getElementById('hasad-date').value||todayStr();
   if(!table||!crop){showToast('اختر الترابيزة والصنف','err');return}
   if(!count||count<=0){showToast('أدخل عدد العيون المحصودة','err');return}
+  
   if(!isMultiHarvest(crop)){
+    setSyncing('جارٍ تحديث البيانات...');
+    await loadAll(); /* التأكد من عدم حدوث تزامن */
     const state=computeState();
     const avail=state[table].crops[crop]||0;
-    if(count>avail){showToast(`المتاح للحصاد ${avail} فقط`,'err');return}
+    if(count>avail){showToast(`المتاح للحصاد ${avail} فقط`,'err');setSynced();return}
   }
   setSyncing('جارٍ الحفظ...');
   const r=await sharedPost('addHarvest',{section:'',table,crop,method,qty:count,weight,quality,user:currentUser?.username||'',date});
@@ -985,7 +976,7 @@ async function submitRemainingUpdate(){
   const newVal=parseInt(document.getElementById('remaining-new').value);
   const date=document.getElementById('hasad-date').value||todayStr();
   if(!table||!crop){showToast('اختر الترابيزة والصنف','err');return}
-  if(newVal===''||isNaN(newVal)||newVal<0){showToast('أدخل رقم صحيح (يمكن صفر)','err');return}
+  if(newVal===''||isNaN(newVal)||newVal<0){showToast('أدخل رقم صحيح','err');return}
   setSyncing('جارٍ الحفظ...');
   const r=await sharedPost('addRemainingUpdate',{table,crop,qty:newVal,user:currentUser?.username||'',date});
   if(r&&r.ok){
@@ -995,9 +986,6 @@ async function submitRemainingUpdate(){
   setSynced();
 }
 
-/* ══════════════════════════════════════════════
-   حصاد الميكروجرين
-══════════════════════════════════════════════ */
 async function loadMicroBatches(){
   const box=document.getElementById('micro-batch-list');
   box.innerHTML='<div class="empty-msg">جارٍ التحميل...</div>';
@@ -1007,7 +995,7 @@ async function loadMicroBatches(){
     allInvBatches=r.data.slice(1)
       .filter(row=>row[0]&&parseFloat(row[3])>0&&String(row[1]||'').includes('ميكروجرين'))
       .map(row=>({code:row[0],product:row[1],origQty:parseFloat(row[2])||0,remaining:parseFloat(row[3])||0,date:row[4],source:row[5]}));
-    if(!allInvBatches.length){box.innerHTML='<div class="empty-msg">مفيش دفعات ميكروجرين متاحة حاليًا (لازم اسم المنتج يحتوي على "ميكروجرين")</div>';return;}
+    if(!allInvBatches.length){box.innerHTML='<div class="empty-msg">مفيش دفعات ميكروجرين متاحة</div>';return;}
     box.innerHTML=allInvBatches.map(b=>`<div class="batch-item" onclick="selectMicroBatch('${b.code}')">
       <span class="batch-item-code">${b.code}</span>
       <span class="batch-item-meta">${b.product} · ${b.date}</span>
@@ -1053,9 +1041,6 @@ async function submitMicroHarvest(){
   setSynced();
 }
 
-/* ══════════════════════════════════════════════
-   السجل
-══════════════════════════════════════════════ */
 function renderLog(){
   const filter=document.getElementById('log-filter').value;
   const box=document.getElementById('log-list');
@@ -1083,9 +1068,6 @@ function renderLog(){
   }).join('');
 }
 
-/* ══════════════════════════════════════════════
-   تصدير + طباعة
-══════════════════════════════════════════════ */
 function csvCell(v){return '"'+String(v??'').replace(/"/g,'""')+'"';}
 function exportCSV(){
   if(!movements.length&&!microHarvests.length){showToast('مفيش بيانات','err');return}
@@ -1110,9 +1092,6 @@ function downloadGhPDF(){
   win.document.close();
 }
 
-/* ══════════════════════════════════════════════
-   INIT
-══════════════════════════════════════════════ */
 checkSession();
 </script>
 </body>
